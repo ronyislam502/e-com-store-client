@@ -1,7 +1,7 @@
 "use client";
 
-import { logOut, selectCurrentUser } from "@/src/redux/features/auth/authSlice";
-import { useAppDispatch, useAppSelector } from "@/src/redux/hooks";
+import { TUser } from "@/src/redux/features/auth/authSlice";
+import { useAppSelector } from "@/src/redux/hooks";
 import { Avatar } from "@heroui/avatar";
 import { Button } from "@heroui/button";
 import {
@@ -13,6 +13,8 @@ import {
 import Link from "next/link";
 
 const NavDropdown = () => {
+  const user = useAppSelector((state) => state.auth.user) as TUser;
+
   return (
     <Dropdown>
       <DropdownTrigger>
