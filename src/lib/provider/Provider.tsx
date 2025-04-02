@@ -6,9 +6,7 @@ import { HeroUIProvider } from "@heroui/system";
 import { useRouter } from "next/navigation";
 import { ThemeProvider as NextThemesProvider } from "next-themes";
 import { Toaster } from "sonner";
-import { Provider } from "react-redux";
-import { PersistGate } from "redux-persist/lib/integration/react";
-import { AppStore, persistor, store } from "@/src/redux/store";
+import EProvider from "./ReduxProvider";
 
 export interface ProvidersProps {
   children: React.ReactNode;
@@ -26,20 +24,12 @@ declare module "@react-types/shared" {
 export function Providers({ children, themeProps }: ProvidersProps) {
   const router = useRouter();
 
-  const storeRef = React.useRef<AppStore | null>(null);
-
-  if (!storeRef.current) {
-    storeRef.current = store;
-  }
-
   return (
-    <Provider store={storeRef.current}>
-      <PersistGate loading={null} persistor={persistor}>
-        <HeroUIProvider navigate={router.push}>
-          <NextThemesProvider {...themeProps}>{children}</NextThemesProvider>
-          <Toaster />
-        </HeroUIProvider>
-      </PersistGate>
-    </Provider>
+    <EProvider>
+      <HeroUIProvider navigate={router.push}>
+        <NextThemesProvider {...themeProps}>{children}</NextThemesProvider>
+        <Toaster />
+      </HeroUIProvider>
+    </EProvider>
   );
 }

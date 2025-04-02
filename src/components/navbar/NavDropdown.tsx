@@ -1,6 +1,7 @@
 "use client";
 
 import { TUser } from "@/src/redux/features/auth/authSlice";
+import { useSingleUserQuery } from "@/src/redux/features/user/userApi";
 import { useAppSelector } from "@/src/redux/hooks";
 import { Avatar } from "@heroui/avatar";
 import { Button } from "@heroui/button";
@@ -13,12 +14,18 @@ import {
 import Link from "next/link";
 
 const NavDropdown = () => {
-  const user = useAppSelector((state) => state.auth.user) as TUser;
+  const loggedUser = useAppSelector((state) => state?.auth?.user) as TUser;
+  const { data: userInfo } = useSingleUserQuery(loggedUser?.email);
+  const user = userInfo?.data[0];
 
   return (
     <Dropdown>
       <DropdownTrigger>
-        <Avatar className="cursor-pointer" name="profileImg" src={""} />
+        <Avatar
+          className="cursor-pointer"
+          name="profileImg"
+          src={user?.profileImg || ""}
+        />
       </DropdownTrigger>
       <DropdownMenu aria-label="Static Actions">
         <DropdownItem key="dashboard">
