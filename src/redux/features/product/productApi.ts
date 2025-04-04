@@ -1,16 +1,19 @@
-import { TQueryParam } from "@/src/types";
 import { baseApi } from "../../api/baseApi";
 
 const productApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     allProducts: builder.query({
-      query: (args) => {
+      query: ({ category, page, isStock }) => {
         const params = new URLSearchParams();
 
-        if (args) {
-          args.forEach((product: TQueryParam) => {
-            params.append(product.name, product?.value as string);
-          });
+        if (category) {
+          params.append("category", category);
+        }
+        if (page) {
+          params.append("page", page);
+        }
+        if (isStock) {
+          params.append("isStock", isStock);
         }
 
         return {

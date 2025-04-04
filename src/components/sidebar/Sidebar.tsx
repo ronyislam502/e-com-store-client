@@ -21,7 +21,10 @@ const Sidebar = () => {
             alt="profile"
             className="w-full h-full object-cover rounded-md"
             height={330}
-            src={user?.profileImg || "https://images.unsplash.com/broken"}
+            src={
+              user?.profileImg ||
+              "https://i.pravatar.cc/150?u=a04258114e29026702d"
+            }
             width={330}
           />
         </div>

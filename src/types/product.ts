@@ -1,4 +1,6 @@
 export type TDepartment = {
+  map: any;
+  length: number;
   _id: string;
   name: string;
   isDeleted: boolean;
@@ -8,6 +10,7 @@ export type TDepartment = {
 };
 
 export type TCategory = {
+  subcategories: any;
   _id: string;
   department: TDepartment;
   name: string;
