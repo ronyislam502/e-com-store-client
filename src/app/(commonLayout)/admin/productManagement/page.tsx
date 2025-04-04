@@ -17,6 +17,7 @@ import { TCategory, TProduct } from "@/src/types/product";
 import { Button } from "@heroui/button";
 import { Pagination } from "@heroui/pagination";
 import { Spinner } from "@heroui/spinner";
+import { Avatar } from "@heroui/avatar";
 
 export const columns = [
   { name: "Avatar", uid: "avatar" },
@@ -95,6 +96,8 @@ const ProductManagement = () => {
       ) : (
         <Table fullWidth aria-label="Product Table">
           <TableHeader>
+            <TableColumn>Index</TableColumn>
+            <TableColumn>Image</TableColumn>
             <TableColumn>Name</TableColumn>
             <TableColumn>Category</TableColumn>
             <TableColumn>Price</TableColumn>
@@ -102,8 +105,16 @@ const ProductManagement = () => {
             <TableColumn>Actions</TableColumn>
           </TableHeader>
           <TableBody>
-            {products?.data?.map((product: TProduct) => (
+            {products?.data?.map((product: TProduct, idx: any) => (
               <TableRow key={product._id}>
+                <TableCell>{idx + 1}</TableCell>
+                <TableCell>
+                  <Avatar
+                    className="cursor-pointer"
+                    name="images"
+                    src={product?.images[0] || ""}
+                  />
+                </TableCell>
                 <TableCell>{product?.name}</TableCell>
                 <TableCell>{product?.category?.name}</TableCell>
                 <TableCell>${product?.price}</TableCell>
