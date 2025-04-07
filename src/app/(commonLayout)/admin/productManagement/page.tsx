@@ -9,7 +9,7 @@ import {
   TableCell,
 } from "@heroui/table";
 import { useAllProductsQuery } from "@/src/redux/features/product/productApi";
-import { useCallback, useState } from "react";
+import { useState } from "react";
 import { useAllCategoriesQuery } from "@/src/redux/features/category/categoryApi";
 import { Input } from "@heroui/input";
 import { Select, SelectItem } from "@heroui/select";
@@ -18,6 +18,8 @@ import { Button } from "@heroui/button";
 import { Pagination } from "@heroui/pagination";
 import { Spinner } from "@heroui/spinner";
 import { Avatar } from "@heroui/avatar";
+import AddProduct from "./_component/AddProduct";
+import EditProduct from "./_component/EditProduct";
 
 export const columns = [
   { name: "Avatar", uid: "avatar" },
@@ -51,9 +53,8 @@ const ProductManagement = () => {
   return (
     <div className="p-4 max-w-6xl mx-auto">
       <h2 className="text-2xl font-bold mb-4">Product Management</h2>
-
       {/* Filters */}
-      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 mb-4">
+      <div className="grid grid-cols-1  lg:grid-cols-4 gap-4 mb-4">
         <Input
           className="w-full p-2 border rounded"
           placeholder="Search products..."
@@ -68,7 +69,7 @@ const ProductManagement = () => {
         >
           <SelectItem key="">All</SelectItem>
           {isLoadingCategories ? (
-            <SelectItem key="loading">
+            <SelectItem>
               <Spinner />
             </SelectItem>
           ) : (
@@ -86,6 +87,7 @@ const ProductManagement = () => {
           <SelectItem key="true">In Stock</SelectItem>
           <SelectItem key="false">Out of Stock</SelectItem>
         </Select>
+        <AddProduct />
       </div>
 
       {/* Table */}
@@ -121,11 +123,9 @@ const ProductManagement = () => {
                 <TableCell>
                   {product?.isStock ? "In Stock" : "Out of Stock"}
                 </TableCell>
-                <TableCell>
-                  <Button color="warning" size="sm">
-                    Edit
-                  </Button>
-                  <Button className="ml-2" color="danger" size="sm">
+                <TableCell className="flex gap-2">
+                  <EditProduct id={product._id} />
+                  <Button color="danger" size="sm">
                     Delete
                   </Button>
                 </TableCell>

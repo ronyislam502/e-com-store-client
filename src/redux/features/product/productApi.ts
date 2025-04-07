@@ -3,7 +3,7 @@ import { baseApi } from "../../api/baseApi";
 const productApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     allProducts: builder.query({
-      query: ({ category, page, isStock }) => {
+      query: ({ category, page, isStock, limit }) => {
         const params = new URLSearchParams();
 
         if (category) {
@@ -11,6 +11,9 @@ const productApi = baseApi.injectEndpoints({
         }
         if (page) {
           params.append("page", page);
+        }
+        if (limit) {
+          params.append("limit", limit);
         }
         if (isStock) {
           params.append("isStock", isStock);

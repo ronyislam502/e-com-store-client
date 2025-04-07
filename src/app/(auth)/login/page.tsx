@@ -63,7 +63,6 @@ const Login = () => {
           <div className="py-3">
             <EInput label="Password" name="password" type="password" />
           </div>
-
           <Button
             className="my-3 w-full rounded-md bg-default-900 font-semibold text-default"
             size="lg"

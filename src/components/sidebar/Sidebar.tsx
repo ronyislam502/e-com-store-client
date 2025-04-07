@@ -23,7 +23,7 @@ const Sidebar = () => {
             height={330}
             src={
               user?.profileImg ||
-              "https://i.pravatar.cc/150?u=a04258114e29026702d"
+              "https://i.postimg.cc/wvz0bsz5/picture-profile-icon-male-icon-human-or-people-sign-and-symbol-free-vector.jpg"
             }
             width={330}
           />
