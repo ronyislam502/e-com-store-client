@@ -20,6 +20,7 @@ import { Spinner } from "@heroui/spinner";
 import { Avatar } from "@heroui/avatar";
 import AddProduct from "./_component/AddProduct";
 import EditProduct from "./_component/EditProduct";
+import ESelect from "@/src/components/form/ESelect";
 
 export const columns = [
   { name: "Avatar", uid: "avatar" },
@@ -62,6 +63,7 @@ const ProductManagement = () => {
           value={searchTerm}
           onChange={handleSearch}
         />
+
         <Select
           label="Category"
           value={category}

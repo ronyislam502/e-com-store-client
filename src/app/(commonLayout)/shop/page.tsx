@@ -8,7 +8,6 @@ import { Pagination } from "@heroui/pagination";
 import ProductCard from "@/src/components/ui/ProductCard";
 import ShopSkeleton from "@/src/components/skeleton/ShopSkeleton";
 import { Select, SelectItem } from "@heroui/select";
-import CardSkeleton from "@/src/components/skeleton/CardSkeleton";
 
 const Shop = () => {
   const [category, setCategory] = useState("");
@@ -17,7 +16,7 @@ const Shop = () => {
   const [page, setPage] = useState(1);
 
   const { data: categories, isLoading: isLoadingCategories } =
-    useAllCategoriesQuery({});
+    useAllCategoriesQuery("");
 
   const { data: products, isLoading: isLoadingProducts } = useAllProductsQuery({
     category,
