@@ -18,7 +18,6 @@ import {
 import Image from "next/image";
 import React, { ChangeEvent, useState } from "react";
 import { FieldValues, FormProvider, useForm } from "react-hook-form";
-import { toast } from "sonner";
 
 const AddProduct = () => {
   const methods = useForm();
