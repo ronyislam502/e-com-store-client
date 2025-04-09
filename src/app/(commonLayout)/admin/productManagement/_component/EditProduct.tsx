@@ -20,7 +20,6 @@ import { ChangeEvent, useState } from "react";
 import { FieldValues, FormProvider, useForm } from "react-hook-form";
 
 const EditProduct = ({ id }: { id: string }) => {
-  console.log("id", id);
   const methods = useForm();
   const [imageFiles, setImageFiles] = useState<File[] | []>([]);
   const [imagePreviews, setImagePreviews] = useState<string[] | []>([]);
@@ -85,7 +84,7 @@ const EditProduct = ({ id }: { id: string }) => {
 
   return (
     <div>
-      <Button color="primary" onPress={onOpen}>
+      <Button color="primary" size="sm" onPress={onOpen}>
         Edit
       </Button>
       <Modal isOpen={isOpen} placement="top-center" onOpenChange={onOpenChange}>

@@ -5,6 +5,7 @@ import EInput from "@/src/components/form/EInput";
 import ESelect from "@/src/components/form/ESelect";
 import ETextarea from "@/src/components/form/ETextarea";
 import { useAllCategoriesQuery } from "@/src/redux/features/category/categoryApi";
+import { useAddProductMutation } from "@/src/redux/features/product/productApi";
 import { TError } from "@/src/types";
 import { Button } from "@heroui/button";
 import {
@@ -18,12 +19,17 @@ import {
 import Image from "next/image";
 import React, { ChangeEvent, useState } from "react";
 import { FieldValues, FormProvider, useForm } from "react-hook-form";
+import { toast } from "sonner";
+import { zodResolver } from "@hookform/resolvers/zod";
+import productValidationSchema from "@/src/schemas/productValidationSchema";
 
 const AddProduct = () => {
   const methods = useForm();
   const [imageFiles, setImageFiles] = useState<File[] | []>([]);
   const [imagePreviews, setImagePreviews] = useState<string[] | []>([]);
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
+
+  const [createProduct] = useAddProductMutation();
 
   const {
     data: categoriesData,
@@ -45,8 +51,6 @@ const AddProduct = () => {
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files![0];
 
-    console.log("file", files);
-
     setImageFiles((prev) => [...prev, files]);
 
     if (files) {
@@ -60,25 +64,42 @@ const AddProduct = () => {
     }
   };
 
-  const onSubmit = (data: FieldValues) => {
+  const onSubmit = async (data: FieldValues) => {
+    const toastId = toast.loading("Add product....");
+
     const numericPrice = Number(data?.price);
     const numericQuantity = Number(data?.quantity);
-
     const formData = new FormData();
 
-    const productData = {
-      name: data?.name,
-      description: data?.description,
-      price: numericPrice,
-      category: data?.category,
-      brand: data?.brand,
-      quantity: numericQuantity,
-    };
+    try {
+      const productData = {
+        name: data?.name,
+        description: data?.description,
+        price: numericPrice,
+        category: data?.category,
+        brand: data?.brand,
+        quantity: numericQuantity,
+      };
 
-    formData.append("data", JSON.stringify(productData));
+      formData.append("data", JSON.stringify(productData));
 
-    for (let images of imageFiles) {
-      formData.append("files", images);
+      for (let images of imageFiles) {
+        formData.append("files", images);
+      }
+      const res = await createProduct(formData);
+
+      if (res?.data?.success) {
+        toast?.success(res?.data?.message, { id: toastId, duration: 2000 });
+        methods.reset();
+        setImageFiles([]);
+        setImagePreviews([]);
+      }
+    } catch (error) {
+      console.log(error);
+
+      const err = error as TError;
+
+      toast.error(err?.data?.message, { id: toastId, duration: 2000 });
     }
   };
 
@@ -96,7 +117,10 @@ const AddProduct = () => {
                   Add Product
                 </ModalHeader>
 
-                <EForm onSubmit={onSubmit}>
+                <EForm
+                  resolver={zodResolver(productValidationSchema)}
+                  onSubmit={onSubmit}
+                >
                   <ModalBody>
                     <EInput label="Name" name="name" type="text" />
                     <ETextarea
@@ -104,15 +128,19 @@ const AddProduct = () => {
                       name="description"
                       type="text"
                     />
-                    <EInput label="Price" name="price" type="number" />
-                    <ESelect
-                      disabled={!categorySuccess}
-                      label="Category"
-                      name="category"
-                      options={categoryOption}
-                    />
-                    <EInput label="Brand" name="brand" type="text" />
-                    <EInput label="Quantity" name="quantity" type="number" />
+                    <div className="flex gap-2">
+                      <ESelect
+                        disabled={!categorySuccess}
+                        label="Category"
+                        name="category"
+                        options={categoryOption}
+                      />
+                      <EInput label="Brand" name="brand" type="text" />
+                    </div>
+                    <div className="flex gap-2">
+                      <EInput label="Price" name="price" type="number" />
+                      <EInput label="Quantity" name="quantity" type="number" />
+                    </div>
                     <div className="min-w-fit flex-1">
                       <label
                         className="flex h-14 w-full cursor-pointer items-center justify-center rounded-xl border-2 border-default-200 text-default-500 shadow-sm transition-all duration-100 hover:border-default-400"
@@ -123,24 +151,21 @@ const AddProduct = () => {
                       <input
                         multiple
                         className="hidden"
-                        id="images"
+                        id="image"
                         type="file"
                         onChange={(e) => handleImageChange(e)}
                       />
                     </div>
                     {imagePreviews.length > 0 && (
-                      <div className="flex gap-5 my-5 flex-wrap">
+                      <div className="flex gap-2 px-10 py-2 flex-wrap">
                         {imagePreviews.map((imageDataUrl) => (
-                          <div
-                            key={imageDataUrl}
-                            className="relative size-48 rounded-xl border-2 border-dashed border-default-300 p-2"
-                          >
+                          <div key={imageDataUrl} className="rounded-xl">
                             <Image
-                              alt="item"
-                              className="h-full w-full object-cover object-center rounded-md"
-                              height={200}
+                              alt="product"
+                              className="rounded-md"
+                              height={50}
                               src={imageDataUrl}
-                              width={200}
+                              width={100}
                             />
                           </div>
                         ))}

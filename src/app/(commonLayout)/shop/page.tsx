@@ -13,15 +13,16 @@ const Shop = () => {
   const [category, setCategory] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
   const [limit] = useState(8);
+  const [sort, setSort] = useState("");
   const [page, setPage] = useState(1);
 
-  const { data: categories, isLoading: isLoadingCategories } =
-    useAllCategoriesQuery("");
+  const { data: categories } = useAllCategoriesQuery("");
 
   const { data: products, isLoading: isLoadingProducts } = useAllProductsQuery({
     category,
     page,
     limit,
+    sort,
   });
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -31,20 +32,22 @@ const Shop = () => {
 
   return (
     <div className="items-center">
-      <h2>Shop</h2>
+      <h2 className="text-center">Shop</h2>
       <div className="grid grid-cols-1 lg:grid-cols-6 gap-6">
         <div className="col-span-1">
           {" "}
-          <Select
-            label="Category"
-            value={category}
-            onChange={(e) => setCategory(e.target.value)}
-          >
-            <SelectItem key="">All</SelectItem>
-            {categories?.data?.map((category: TCategory) => (
-              <SelectItem key={category?._id}>{category?.name}</SelectItem>
-            ))}
-          </Select>
+          <div className="mt-10">
+            <Select
+              label="Category"
+              value={category}
+              onChange={(e) => setCategory(e.target.value)}
+            >
+              <SelectItem key="">All</SelectItem>
+              {categories?.data?.map((category: TCategory) => (
+                <SelectItem key={category?._id}>{category?.name}</SelectItem>
+              ))}
+            </Select>
+          </div>
         </div>
         <div className="col-span-5">
           {isLoadingProducts && <ShopSkeleton />}

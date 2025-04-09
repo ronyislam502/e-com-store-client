@@ -1,13 +1,18 @@
+import { TQueryParam } from "@/src/types";
 import { baseApi } from "../../api/baseApi";
 
 const productApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     allProducts: builder.query({
-      query: ({ category, page, isStock, limit }) => {
+      query: ({ category, page, isStock, limit, sort }) => {
         const params = new URLSearchParams();
 
         if (category) {
           params.append("category", category);
+        }
+
+        if (sort) {
+          params.append("sort", sort);
         }
         if (page) {
           params.append("page", page);
@@ -25,6 +30,7 @@ const productApi = baseApi.injectEndpoints({
           params: params,
         };
       },
+      providesTags: ["product"],
     }),
     singleProduct: builder.query({
       query: (args) => ({
@@ -39,6 +45,7 @@ const productApi = baseApi.injectEndpoints({
         method: "POST",
         body: data,
       }),
+      invalidatesTags: ["product"],
     }),
     updateProduct: builder.mutation({
       query: (args) => ({
@@ -55,6 +62,23 @@ const productApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["product"],
     }),
+    getAllProducts: builder.query({
+      query: (args) => {
+        const params = new URLSearchParams();
+
+        if (args) {
+          args.forEach((product: TQueryParam) => {
+            params.append(product.name, product?.value as string);
+          });
+        }
+
+        return {
+          url: "/products",
+          method: "GET",
+          params: params,
+        };
+      },
+    }),
   }),
 });
 
@@ -64,4 +88,5 @@ export const {
   useAddProductMutation,
   useUpdateProductMutation,
   useDeleteProductMutation,
+  useGetAllProductsQuery,
 } = productApi;
