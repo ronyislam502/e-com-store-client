@@ -4,7 +4,7 @@ import { baseApi } from "../../api/baseApi";
 const productApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     allProducts: builder.query({
-      query: ({ category, page, isStock, limit, sort }) => {
+      query: ({ category, page, isStock, limit, sort, brands }) => {
         const params = new URLSearchParams();
 
         if (category) {
@@ -34,7 +34,7 @@ const productApi = baseApi.injectEndpoints({
     }),
     singleProduct: builder.query({
       query: (args) => ({
-        url: `/products/${args.id}`,
+        url: `/products/${args?.id}`,
         method: "GET",
       }),
       providesTags: ["product"],
@@ -49,15 +49,15 @@ const productApi = baseApi.injectEndpoints({
     }),
     updateProduct: builder.mutation({
       query: (args) => ({
-        url: `/products/update/${args.id}`,
+        url: `/products/update/${args?.id}`,
         method: "PATCH",
         body: args.data,
       }),
       invalidatesTags: ["product"],
     }),
     deleteProduct: builder.mutation({
-      query: (args) => ({
-        url: `/products/${args.id}`,
+      query: (id) => ({
+        url: `/products/${id}`,
         method: "DELETE",
       }),
       invalidatesTags: ["product"],

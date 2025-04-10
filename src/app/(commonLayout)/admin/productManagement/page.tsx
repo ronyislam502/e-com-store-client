@@ -20,6 +20,14 @@ import { Spinner } from "@heroui/spinner";
 import { Avatar } from "@heroui/avatar";
 import AddProduct from "./_component/AddProduct";
 import EditProduct from "./_component/EditProduct";
+import {
+  Dropdown,
+  DropdownItem,
+  DropdownMenu,
+  DropdownTrigger,
+} from "@heroui/dropdown";
+import { VerticalDotsIcon } from "@/src/components/icons";
+import DeleteProduct from "./_component/DeleteProduct";
 
 export const columns = [
   { name: "Avatar", uid: "avatar" },
@@ -35,6 +43,7 @@ const ProductManagement = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [page, setPage] = useState(1);
   const [isStock, setIsStock] = useState("");
+  const [limit] = useState(8);
 
   const { data: categories, isLoading: isLoadingCategories } =
     useAllCategoriesQuery({});
@@ -43,7 +52,10 @@ const ProductManagement = () => {
     category,
     page,
     isStock,
+    limit,
   });
+
+  console.log("pp", products?.meta?.total);
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(e.target.value);
@@ -52,9 +64,8 @@ const ProductManagement = () => {
 
   return (
     <div className="p-4 max-w-6xl mx-auto">
-      <h2 className="text-2xl font-bold mb-4">Product Management</h2>
-      {/* Filters */}
-      <div className="grid grid-cols-1  lg:grid-cols-4 gap-4 mb-4">
+      <h2>Total:{products?.meta?.total}</h2>
+      <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 mb-4">
         <Input
           className="w-full p-2 border rounded"
           placeholder="Search products..."
@@ -63,85 +74,96 @@ const ProductManagement = () => {
           onChange={handleSearch}
         />
 
-        <Select
-          label="Category"
-          value={category}
-          onChange={(e) => setCategory(e.target.value)}
-        >
-          <SelectItem key="">All</SelectItem>
-          {isLoadingCategories ? (
-            <SelectItem>
-              <Spinner />
-            </SelectItem>
-          ) : (
-            categories?.data?.map((category: TCategory) => (
-              <SelectItem key={category?._id}>{category.name}</SelectItem>
-            ))
-          )}
-        </Select>
-        <Select
-          label="Stock Status"
-          value={isStock}
-          onChange={(e) => setIsStock(e.target.value)}
-        >
-          <SelectItem key="">All</SelectItem>
-          <SelectItem key="true">In Stock</SelectItem>
-          <SelectItem key="false">Out of Stock</SelectItem>
-        </Select>
+        <div>
+          <Select
+            label="Category"
+            value={category}
+            onChange={(e) => setCategory(e.target.value)}
+          >
+            <SelectItem key="">All</SelectItem>
+            {isLoadingCategories ? (
+              <SelectItem>
+                <Spinner />
+              </SelectItem>
+            ) : (
+              categories?.data?.map((category: TCategory) => (
+                <SelectItem key={category?._id}>{category.name}</SelectItem>
+              ))
+            )}
+          </Select>
+        </div>
+        <div>
+          <Select
+            label="Stock Status"
+            value={isStock}
+            onChange={(e) => setIsStock(e.target.value)}
+          >
+            <SelectItem key="">All</SelectItem>
+            <SelectItem key="true">In Stock</SelectItem>
+            <SelectItem key="false">Out of Stock</SelectItem>
+          </Select>
+        </div>
         <AddProduct />
       </div>
-
-      {/* Table */}
-      {isLoadingProducts ? (
-        <div className="flex justify-center">
-          <Spinner />
-        </div>
-      ) : (
-        <Table fullWidth aria-label="Product Table">
-          <TableHeader>
-            <TableColumn>Index</TableColumn>
-            <TableColumn>Image</TableColumn>
-            <TableColumn>Name</TableColumn>
-            <TableColumn>Category</TableColumn>
-            <TableColumn>Price</TableColumn>
-            <TableColumn>Stock</TableColumn>
-            <TableColumn>Actions</TableColumn>
-          </TableHeader>
-          <TableBody>
-            {products?.data?.map((product: TProduct, idx: any) => (
-              <TableRow key={product._id}>
-                <TableCell>{idx + 1}</TableCell>
-                <TableCell>
-                  <Avatar
-                    className="cursor-pointer"
-                    name="images"
-                    src={product?.images[0] || ""}
-                  />
-                </TableCell>
-                <TableCell>{product?.name}</TableCell>
-                <TableCell>{product?.category?.name}</TableCell>
-                <TableCell>${product?.price}</TableCell>
-                <TableCell>
-                  {product?.isStock ? "In Stock" : "Out of Stock"}
-                </TableCell>
-                <TableCell className="flex gap-2">
-                  <EditProduct id={product._id} />
-                  <Button color="danger" size="sm">
-                    Delete
-                  </Button>
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      )}
-
+      <div>
+        {isLoadingProducts ? (
+          <div className="flex justify-center">
+            <Spinner />
+          </div>
+        ) : (
+          <Table fullWidth aria-label="Product Table">
+            <TableHeader>
+              <TableColumn className="font-bold">Index</TableColumn>
+              <TableColumn>Image</TableColumn>
+              <TableColumn>
+                <span className="ms-28">Name</span>
+              </TableColumn>
+              <TableColumn>Category</TableColumn>
+              <TableColumn>Price</TableColumn>
+              <TableColumn>Quantity</TableColumn>
+              <TableColumn>Stock</TableColumn>
+              <TableColumn>
+                <span className="ms-10">Actions</span>
+              </TableColumn>
+            </TableHeader>
+            <TableBody>
+              {products?.data?.map((product: TProduct, idx: any) => (
+                <TableRow key={product._id}>
+                  <TableCell>{idx + 1}</TableCell>
+                  <TableCell>
+                    <Avatar
+                      className="cursor-pointer"
+                      name="images"
+                      src={product?.images[0] || ""}
+                    />
+                  </TableCell>
+                  <TableCell>{product?.name}</TableCell>
+                  <TableCell>{product?.category?.name}</TableCell>
+                  <TableCell>${product?.price}</TableCell>
+                  <TableCell>{product?.quantity}</TableCell>
+                  <TableCell>
+                    {product?.isStock ? "In Stock" : "Out of Stock"}
+                  </TableCell>
+                  <TableCell className="flex gap-2">
+                    <EditProduct />
+                    <DeleteProduct product={product} />
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        )}
+      </div>
       {/* Pagination */}
       <div className="flex justify-center mt-4">
         <Pagination
+          isCompact
+          showControls
+          showShadow
+          color="secondary"
           page={page}
-          total={products?.meta?.totalPage}
-          onChange={setPage}
+          total={products?.meta?.totalPage ?? 8}
+          onChange={(page) => setPage(page)}
         />
       </div>
     </div>

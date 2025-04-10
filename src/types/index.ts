@@ -5,6 +5,7 @@ export type IconSvgProps = SVGProps<SVGSVGElement> & {
 };
 
 export type TError = {
+  message: string;
   data: {
     message: string;
     stack: string;

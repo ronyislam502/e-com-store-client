@@ -89,14 +89,12 @@ const AddProduct = () => {
       const res = await createProduct(formData);
 
       if (res?.data?.success) {
-        toast?.success(res?.data?.message, { id: toastId, duration: 2000 });
+        toast.success(res?.data?.message, { id: toastId, duration: 2000 });
         methods.reset();
         setImageFiles([]);
         setImagePreviews([]);
       }
     } catch (error) {
-      console.log(error);
-
       const err = error as TError;
 
       toast.error(err?.data?.message, { id: toastId, duration: 2000 });
@@ -172,7 +170,7 @@ const AddProduct = () => {
                       </div>
                     )}
                   </ModalBody>
-                  <ModalFooter>
+                  <ModalFooter className="text-center">
                     <Button color="danger" variant="flat" onPress={onClose}>
                       Close
                     </Button>
