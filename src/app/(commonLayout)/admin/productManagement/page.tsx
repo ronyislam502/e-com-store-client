@@ -14,19 +14,11 @@ import { useAllCategoriesQuery } from "@/src/redux/features/category/categoryApi
 import { Input } from "@heroui/input";
 import { Select, SelectItem } from "@heroui/select";
 import { TCategory, TProduct } from "@/src/types/product";
-import { Button } from "@heroui/button";
 import { Pagination } from "@heroui/pagination";
 import { Spinner } from "@heroui/spinner";
 import { Avatar } from "@heroui/avatar";
 import AddProduct from "./_component/AddProduct";
 import EditProduct from "./_component/EditProduct";
-import {
-  Dropdown,
-  DropdownItem,
-  DropdownMenu,
-  DropdownTrigger,
-} from "@heroui/dropdown";
-import { VerticalDotsIcon } from "@/src/components/icons";
 import DeleteProduct from "./_component/DeleteProduct";
 
 export const columns = [
@@ -55,8 +47,6 @@ const ProductManagement = () => {
     limit,
   });
 
-  console.log("pp", products?.meta?.total);
-
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(e.target.value);
     setPage(1);
@@ -64,7 +54,6 @@ const ProductManagement = () => {
 
   return (
     <div className="p-4 max-w-6xl mx-auto">
-      <h2>Total:{products?.meta?.total}</h2>
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 mb-4">
         <Input
           className="w-full p-2 border rounded"
@@ -145,7 +134,7 @@ const ProductManagement = () => {
                     {product?.isStock ? "In Stock" : "Out of Stock"}
                   </TableCell>
                   <TableCell className="flex gap-2">
-                    <EditProduct />
+                    <EditProduct product={product} />
                     <DeleteProduct product={product} />
                   </TableCell>
                 </TableRow>

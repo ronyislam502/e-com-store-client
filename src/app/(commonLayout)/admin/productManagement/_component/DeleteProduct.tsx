@@ -25,18 +25,18 @@ const DeleteProduct = ({ product }: TProps) => {
   const [deleteProduct] = useDeleteProductMutation();
 
   const handleDelete = async (id: string) => {
-    const toastId = toast.loading("please wait...", { duration: 1000 });
+    const toastId = toast.loading("please wait...");
 
     try {
       const res = await deleteProduct(id);
 
       if (res?.data?.success) {
-        toast.success(res?.data?.message, { id: toastId });
+        toast.success(res?.data?.message, { id: toastId, duration: 2000 });
       }
     } catch (error: any) {
       const err = error as TError;
 
-      toast.error(err?.data?.message, { id: toastId });
+      toast.error(err?.data?.message, { id: toastId, duration: 2000 });
     }
   };
 
