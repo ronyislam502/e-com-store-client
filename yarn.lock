@@ -116,16 +116,16 @@
     "@react-types/shared" "3.28.0"
 
 "@heroui/avatar@^2.2.12":
-  version "2.2.12"
-  resolved "https://registry.npmjs.org/@heroui/avatar/-/avatar-2.2.12.tgz"
-  integrity sha512-kSgFtEtW0bFLZkvox8/rm6VAZXOnTEPyOXL8OmBdOrIFRHWTe9pEW5rhx6KbgTj5Time+bCgMnU6lUVpB2nFjA==
+  version "2.2.13"
+  resolved "https://registry.npmjs.org/@heroui/avatar/-/avatar-2.2.13.tgz"
+  integrity sha512-aeQYwDtslcoqUscD19FOsnrgpWJfwDeNGcRXmP/8ERpWXqosAADhOhcXGQ4VjsZXLUYErInI2nZN+K53AA7+qA==
   dependencies:
     "@heroui/react-utils" "2.1.8"
     "@heroui/shared-utils" "2.1.7"
     "@heroui/use-image" "2.1.7"
-    "@react-aria/focus" "3.20.0"
-    "@react-aria/interactions" "3.24.0"
-    "@react-aria/utils" "3.28.0"
+    "@react-aria/focus" "3.20.1"
+    "@react-aria/interactions" "3.24.1"
+    "@react-aria/utils" "3.28.1"
 
 "@heroui/button@2.2.16":
   version "2.2.16"
@@ -2261,6 +2261,11 @@ chokidar@^3.6.0:
   optionalDependencies:
     fsevents "~2.3.2"
 
+classnames@^2.2.5:
+  version "2.5.1"
+  resolved "https://registry.npmjs.org/classnames/-/classnames-2.5.1.tgz"
+  integrity sha512-saHYOzhIQs6wy2sVxTM6bUDsQO4F50V9RQ22qBpEdCW+I+/Wmke2HOl6lS6dTpdxVhb88/I6+Hs+438c3lfUow==
+
 client-only@0.0.1:
   version "0.0.1"
   resolved "https://registry.npmjs.org/client-only/-/client-only-0.0.1.tgz"
@@ -3978,7 +3983,7 @@ prettier@>=3.0.0, prettier@3.3.3:
   resolved "https://registry.npmjs.org/prettier/-/prettier-3.3.3.tgz"
   integrity sha512-i2tDNA0O5IrMO757lfrdQZCc2jPNDVntV0m/+4whiDfWaTKfMNgR7Qz0NAeGz/nRqF4m5/6CLzbP4/liHt12Ew==
 
-prop-types@^15.8.1:
+prop-types@^15.5.8, prop-types@^15.8.1:
   version "15.8.1"
   resolved "https://registry.npmjs.org/prop-types/-/prop-types-15.8.1.tgz"
   integrity sha512-oj87CgZICdulUohogVAR7AjlC0327U4el4L6eAvOqCeudMDVU0NThNaV+b9Df4dXgSP1gXMTnPdhfe/2qDH5cg==
@@ -4005,6 +4010,13 @@ queue-microtask@^1.2.2:
     loose-envify "^1.1.0"
     scheduler "^0.23.2"
 
+react-easy-swipe@^0.0.21:
+  version "0.0.21"
+  resolved "https://registry.npmjs.org/react-easy-swipe/-/react-easy-swipe-0.0.21.tgz"
+  integrity sha512-OeR2jAxdoqUMHIn/nS9fgreI5hSpgGoL5ezdal4+oO7YSSgJR8ga+PkYGJrSrJ9MKlPcQjMQXnketrD7WNmNsg==
+  dependencies:
+    prop-types "^15.5.8"
+
 react-hook-form@^7.55.0:
   version "7.55.0"
   resolved "https://registry.npmjs.org/react-hook-form/-/react-hook-form-7.55.0.tgz"
@@ -4022,6 +4034,15 @@ react-is@^16.13.1:
   dependencies:
     "@types/use-sync-external-store" "^0.0.6"
     use-sync-external-store "^1.4.0"
+
+react-responsive-carousel@^3.2.23:
+  version "3.2.23"
+  resolved "https://registry.npmjs.org/react-responsive-carousel/-/react-responsive-carousel-3.2.23.tgz"
+  integrity sha512-pqJLsBaKHWJhw/ItODgbVoziR2z4lpcJg+YwmRlSk4rKH32VE633mAtZZ9kDXjy4wFO+pgUZmDKPsPe1fPmHCg==
+  dependencies:
+    classnames "^2.2.5"
+    prop-types "^15.5.8"
+    react-easy-swipe "^0.0.21"
 
 react-textarea-autosize@^8.5.3:
   version "8.5.9"

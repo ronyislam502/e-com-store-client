@@ -10,9 +10,9 @@ const ShopSkeleton = () => {
   return (
     <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 mt-10">
       {" "}
-      {products?.data?.map((product: TProduct) => (
-        <CardSkeleton key={product._id} />
-      ))}
+      {products?.data
+        ?.slice(0, 8)
+        ?.map((product: TProduct) => <CardSkeleton key={product._id} />)}
     </div>
   );
 };

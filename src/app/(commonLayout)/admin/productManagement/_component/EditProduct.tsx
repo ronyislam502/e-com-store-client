@@ -20,9 +20,10 @@ import EForm from "@/src/components/form/EForm";
 import EInput from "@/src/components/form/EInput";
 import ETextarea from "@/src/components/form/ETextarea";
 import ESelect from "@/src/components/form/ESelect";
-import { zodResolver } from "@hookform/resolvers/zod";
-import productValidationSchema from "@/src/schemas/productValidationSchema";
 import { TError } from "@/src/types";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { updateProductValidationSchema } from "@/src/schemas/productValidationSchema";
+import { EditIcon } from "@/src/components/icons";
 
 type TProps = {
   product: TProduct;
@@ -102,8 +103,6 @@ const EditProduct = ({ product }: TProps) => {
         data: formData,
       }).unwrap();
 
-      console.log("res", res);
-
       if (res?.success) {
         toast.success(res?.message, { id: toastId, duration: 2000 });
       }
@@ -116,16 +115,16 @@ const EditProduct = ({ product }: TProps) => {
 
   return (
     <div>
-      <Button color="warning" onPress={onOpen}>
-        Edit
+      <Button color="warning" size="sm" onPress={onOpen}>
+        <EditIcon />
       </Button>
-
       <Modal isOpen={isOpen} placement="top-center" onOpenChange={onOpenChange}>
         <ModalContent>
           {(onClose) => (
             <FormProvider {...methods}>
-              <ModalHeader>Edit Product</ModalHeader>
-
+              <ModalHeader className="flex flex-col gap-1 text-center font-bold text-2xl">
+                Update Product
+              </ModalHeader>
               <EForm
                 defaultValues={{
                   name: product?.name,
@@ -135,6 +134,7 @@ const EditProduct = ({ product }: TProps) => {
                   quantity: product?.quantity,
                   category: product?.category,
                 }}
+                resolver={zodResolver(updateProductValidationSchema)}
                 onSubmit={onSubmit}
               >
                 <ModalBody>
@@ -191,10 +191,10 @@ const EditProduct = ({ product }: TProps) => {
                 </ModalBody>
 
                 <ModalFooter>
-                  <Button color="danger" variant="flat" onPress={onClose}>
+                  <Button color="danger" onPress={onClose}>
                     Cancel
                   </Button>
-                  <Button color="primary" type="submit" onPress={onClose}>
+                  <Button color="success" type="submit" onPress={onClose}>
                     Update
                   </Button>
                 </ModalFooter>

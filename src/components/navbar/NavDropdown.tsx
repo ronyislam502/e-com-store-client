@@ -1,8 +1,8 @@
 "use client";
 
-import { TUser } from "@/src/redux/features/auth/authSlice";
+import { logOut, TUser } from "@/src/redux/features/auth/authSlice";
 import { useSingleUserQuery } from "@/src/redux/features/user/userApi";
-import { useAppSelector } from "@/src/redux/hooks";
+import { useAppDispatch, useAppSelector } from "@/src/redux/hooks";
 import { Avatar } from "@heroui/avatar";
 import { Button } from "@heroui/button";
 import {
@@ -12,11 +12,20 @@ import {
   DropdownItem,
 } from "@heroui/dropdown";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 const NavDropdown = () => {
+  const dispatch = useAppDispatch();
+  const router = useRouter();
+
   const loggedUser = useAppSelector((state) => state?.auth?.user) as TUser;
   const { data: userInfo } = useSingleUserQuery(loggedUser?.email);
   const user = userInfo?.data[0];
+
+  const handleLogOut = () => {
+    dispatch(logOut());
+    router.push("/");
+  };
 
   return (
     <Dropdown>
@@ -32,7 +41,9 @@ const NavDropdown = () => {
           <Link href={`/${user?.role}`}>Dashboard</Link>
         </DropdownItem>
         <DropdownItem key="delete">
-          <Button size="sm">Logout</Button>
+          <Button size="sm" onPress={handleLogOut}>
+            Logout
+          </Button>
         </DropdownItem>
       </DropdownMenu>
     </Dropdown>

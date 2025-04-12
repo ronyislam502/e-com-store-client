@@ -16,10 +16,12 @@ import { Select, SelectItem } from "@heroui/select";
 import { TCategory, TProduct } from "@/src/types/product";
 import { Pagination } from "@heroui/pagination";
 import { Spinner } from "@heroui/spinner";
-import { Avatar } from "@heroui/avatar";
 import AddProduct from "./_component/AddProduct";
 import EditProduct from "./_component/EditProduct";
 import DeleteProduct from "./_component/DeleteProduct";
+import { Avatar } from "@heroui/avatar";
+import Details from "./[id]/page";
+import Link from "next/link";
 
 export const columns = [
   { name: "Avatar", uid: "avatar" },
@@ -102,12 +104,13 @@ const ProductManagement = () => {
         ) : (
           <Table fullWidth aria-label="Product Table">
             <TableHeader>
-              <TableColumn className="font-bold">Index</TableColumn>
               <TableColumn>Image</TableColumn>
               <TableColumn>
                 <span className="ms-28">Name</span>
               </TableColumn>
-              <TableColumn>Category</TableColumn>
+              <TableColumn>
+                <span className="ms-6">Category</span>
+              </TableColumn>
               <TableColumn>Price</TableColumn>
               <TableColumn>Quantity</TableColumn>
               <TableColumn>Stock</TableColumn>
@@ -116,9 +119,8 @@ const ProductManagement = () => {
               </TableColumn>
             </TableHeader>
             <TableBody>
-              {products?.data?.map((product: TProduct, idx: any) => (
+              {products?.data?.map((product: TProduct) => (
                 <TableRow key={product._id}>
-                  <TableCell>{idx + 1}</TableCell>
                   <TableCell>
                     <Avatar
                       className="cursor-pointer"
@@ -129,11 +131,16 @@ const ProductManagement = () => {
                   <TableCell>{product?.name}</TableCell>
                   <TableCell>{product?.category?.name}</TableCell>
                   <TableCell>${product?.price}</TableCell>
-                  <TableCell>{product?.quantity}</TableCell>
+                  <TableCell>
+                    <span className="ms-4">{product?.quantity}</span>
+                  </TableCell>
                   <TableCell>
                     {product?.isStock ? "In Stock" : "Out of Stock"}
                   </TableCell>
                   <TableCell className="flex gap-2">
+                    <Link href={`/admin/productManagement/${product._id}`}>
+                      <h2>details</h2>
+                    </Link>
                     <EditProduct product={product} />
                     <DeleteProduct product={product} />
                   </TableCell>

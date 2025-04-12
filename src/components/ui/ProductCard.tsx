@@ -21,7 +21,7 @@ const ProductCard = ({ product }: TProps) => {
       </CardBody>
       <CardFooter className="flex-col items-center bg-white ">
         <h1 className="text-sm font-bold text-black">{product?.name}</h1>
-        <p className="p-2">Price: ${product?.price}</p>
+        <p className="p-2 text-black">Price: ${product?.price}</p>
         <Button color="primary">add To cart</Button>
       </CardFooter>
     </Card>

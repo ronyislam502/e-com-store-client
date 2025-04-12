@@ -21,7 +21,7 @@ import React, { ChangeEvent, useState } from "react";
 import { FieldValues, FormProvider, useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { zodResolver } from "@hookform/resolvers/zod";
-import productValidationSchema from "@/src/schemas/productValidationSchema";
+import { createProductValidationSchema } from "@/src/schemas/productValidationSchema";
 
 const AddProduct = () => {
   const methods = useForm();
@@ -86,7 +86,7 @@ const AddProduct = () => {
       for (let images of imageFiles) {
         formData.append("files", images);
       }
-      const res = await createProduct(formData);
+      const res = await createProduct(formData).unwrap();
 
       if (res?.data?.success) {
         toast.success(res?.data?.message, { id: toastId, duration: 2000 });
@@ -103,7 +103,7 @@ const AddProduct = () => {
 
   return (
     <div>
-      <Button color="primary" onPress={onOpen}>
+      <Button className="mt-2" color="success" onPress={onOpen}>
         Add Product
       </Button>
       <Modal isOpen={isOpen} placement="top-center" onOpenChange={onOpenChange}>
@@ -111,12 +111,11 @@ const AddProduct = () => {
           {(onClose) => (
             <>
               <FormProvider {...methods}>
-                <ModalHeader className="flex flex-col gap-1">
+                <ModalHeader className="flex flex-col gap-1 text-center font-bold text-2xl">
                   Add Product
                 </ModalHeader>
-
                 <EForm
-                  resolver={zodResolver(productValidationSchema)}
+                  resolver={zodResolver(createProductValidationSchema)}
                   onSubmit={onSubmit}
                 >
                   <ModalBody>
@@ -171,11 +170,11 @@ const AddProduct = () => {
                     )}
                   </ModalBody>
                   <ModalFooter className="text-center">
-                    <Button color="danger" variant="flat" onPress={onClose}>
+                    <Button color="danger" onPress={onClose}>
                       Close
                     </Button>
-                    <Button color="primary" type="submit" onPress={onClose}>
-                      Submit
+                    <Button color="success" type="submit" onPress={onClose}>
+                      Add
                     </Button>
                   </ModalFooter>
                 </EForm>

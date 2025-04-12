@@ -49,7 +49,7 @@ const DeleteProduct = ({ product }: TProps) => {
         <ModalContent>
           {(onClose) => (
             <>
-              <ModalHeader className="flex flex-col gap-1">
+              <ModalHeader className="flex flex-col gap-1 text-center font-bold text-2xl">
                 Delete product
               </ModalHeader>
               <ModalBody>
@@ -68,11 +68,11 @@ const DeleteProduct = ({ product }: TProps) => {
                 </div>
               </ModalBody>
               <ModalFooter>
-                <Button color="danger" variant="flat" onPress={onClose}>
+                <Button color="success" onPress={onClose}>
                   Cancel
                 </Button>
                 <Button
-                  color="primary"
+                  color="danger"
                   onPress={() => handleDelete(product._id)}
                 >
                   Delete

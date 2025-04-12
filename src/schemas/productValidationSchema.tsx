@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-const productValidationSchema = z.object({
+export const createProductValidationSchema = z.object({
   name: z.string().min(1, "Name is required"),
   description: z.string().min(1, "Description is required"),
   brand: z.string().min(1, "Brand is required"),
@@ -19,4 +19,17 @@ const productValidationSchema = z.object({
   category: z.string().min(1, "Category is required"),
 });
 
-export default productValidationSchema;
+export const updateProductValidationSchema = z.object({
+  name: z.string().min(1, "Name is required").optional(),
+  description: z.string().min(1, "Description is required").optional(),
+  brand: z.string().min(1, "Brand is required").optional(),
+  price: z.coerce
+    .number({ invalid_type_error: "Price must be a number" })
+    .nonnegative("Price must be a non-negative number")
+    .optional(),
+  quantity: z.coerce
+    .number({ invalid_type_error: "Quantity must be a number" })
+    .nonnegative("Quantity must be a non-negative number")
+    .optional(),
+  category: z.string().min(1, "Category is required").optional(),
+});

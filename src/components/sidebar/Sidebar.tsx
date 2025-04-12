@@ -16,10 +16,10 @@ const Sidebar = () => {
   return (
     <div className="text-black">
       <div className="bg-blue-200 p-2">
-        <div className="h-[330px] w-full rounded-md">
+        <div className=" h-auto w-full rounded-md">
           <Image
             alt="profile"
-            className="w-full h-full object-cover rounded-md"
+            className="w-full h-auto object-cover rounded-md"
             height={330}
             src={
               user?.profileImg ||
@@ -28,7 +28,7 @@ const Sidebar = () => {
             width={330}
           />
         </div>
-        <div className="my-3 text-center ">
+        <div className="text-center mt-6">
           <h1 className="text-2xl font-semibold">{user?.name}</h1>
           <p className="break-words text-sm">{user?.email}</p>
           <p className="break-words text-sm">{user?.role}</p>
