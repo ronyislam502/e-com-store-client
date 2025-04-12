@@ -33,7 +33,6 @@ const Login = () => {
       const user = verifyToken(res?.data?.accessToken) as TUser;
 
       dispatch(setUser({ user: user, token: res?.data?.accessToken }));
-
       if (res?.success) {
         toast.success(res?.message, { id: toastId, duration: 2000 });
         router.push("/");
