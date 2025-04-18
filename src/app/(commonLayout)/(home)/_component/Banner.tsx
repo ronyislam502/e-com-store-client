@@ -26,7 +26,6 @@ const Banner = () => {
           </Link>
         </div>
       </div>
-
       <div className="relative">
         <Image
           priority
@@ -36,7 +35,6 @@ const Banner = () => {
           src="https://i.postimg.cc/B65zDm6m/slider-1-1150x500.jpg"
           width={1150}
         />
-
         <div className="absolute inset-0 flex items-center justify-center">
           <Link href="/shop">
             <Button className="px-6 py-3 text-lg" color="primary">

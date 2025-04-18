@@ -11,8 +11,9 @@ import NextLink from "next/link";
 import clsx from "clsx";
 import { siteConfig } from "@/src/config/site";
 import { ThemeSwitch } from "@/src/components/theme-switch";
-import { Logo } from "@/src/components/icons";
+import { Logo, ShoppingCartIcon } from "@/src/components/icons";
 import NavCondition from "./navbar/NavCondition";
+import Link from "next/link";
 
 export const Navbar = () => {
   return (
@@ -47,6 +48,11 @@ export const Navbar = () => {
         justify="end"
       >
         <NavbarItem className="hidden sm:flex gap-2">
+          <Link href="/cart">
+            <ShoppingCartIcon />
+          </Link>
+        </NavbarItem>
+        <NavbarItem className="hidden sm:flex gap-2">
           <ThemeSwitch />
         </NavbarItem>
         <NavbarItem className="hidden sm:flex gap-2">
@@ -77,9 +83,9 @@ export const Navbar = () => {
             </NavbarItem>
           ))}
         </ul>
-        {/* <Link href="/cart">
-          <ShoppingCart />
-        </Link> */}
+        <Link href="/cart">
+          <ShoppingCartIcon />
+        </Link>
       </NavbarMenu>
     </HeroUINavbar>
   );

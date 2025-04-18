@@ -1,4 +1,4 @@
-import { useFormContext } from "react-hook-form";
+import { useFormContext, useWatch } from "react-hook-form";
 import { IInput } from "@/src/types";
 import { Select, SelectItem } from "@heroui/select";
 
@@ -21,12 +21,15 @@ const ESelect = ({
     formState: { errors },
   } = useFormContext();
 
+  const currentValue = useWatch({ name });
+
   return (
     <Select
       {...register(name)}
       className="min-w-full sm:min-w-[225px]"
       isDisabled={disabled}
       label={label}
+      value={currentValue || ""}
       variant={variant}
     >
       {options.map((option) => (

@@ -35,3 +35,13 @@ export type TProduct = {
   updatedAt: string;
   __v: number;
 };
+
+export type TPopularProduct = {
+  totalSold: number;
+  _id: string;
+  name: string;
+  price: number;
+  images: string[];
+  category: TCategory;
+  brand: string;
+};

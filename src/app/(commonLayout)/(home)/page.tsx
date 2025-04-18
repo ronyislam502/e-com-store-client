@@ -1,13 +1,14 @@
 import React from "react";
 import Banner from "./_component/Banner";
 import NewProducts from "./_component/NewProducts";
+import TrendingProducts from "./_component/TrendingProducts";
 
 const Home = () => {
   return (
     <div>
-      <h2>Home</h2>
       <Banner />
       <NewProducts />
+      <TrendingProducts />
     </div>
   );
 };

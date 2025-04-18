@@ -357,3 +357,120 @@ export const DeleteIcon = () => {
     </svg>
   );
 };
+
+export const TrashIcon: React.FC<IconSvgProps> = ({
+  size = 24,
+  width,
+  height,
+  ...props
+}) => {
+  return (
+    <svg
+      fill="currentColor"
+      height={size || height}
+      viewBox="0 0 24 24"
+      width={size || width}
+      {...props}
+    >
+      <path
+        d="M3 6h18M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2m2 0v14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V6h12ZM10 11v6M14 11v6"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="2"
+      />
+    </svg>
+  );
+};
+
+export const CreditCardIcon: React.FC<{ size?: number; color?: string }> = ({
+  size = 24,
+  color = "currentColor",
+}) => {
+  return (
+    <svg
+      fill="none"
+      height={size}
+      viewBox="0 0 24 24"
+      width={size}
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <rect
+        height="16"
+        rx="3"
+        stroke={color}
+        strokeWidth="2"
+        width="20"
+        x="2"
+        y="4"
+      />
+      <path d="M2 10h20" stroke={color} strokeWidth="2" />
+      <rect fill={color} height="2" rx="1" width="6" x="6" y="14" />
+    </svg>
+  );
+};
+
+export const ShoppingCartIcon: React.FC<IconSvgProps> = ({
+  size = 24,
+  width,
+  height,
+  ...props
+}) => {
+  return (
+    <svg
+      fill="currentColor"
+      height={size || height}
+      viewBox="0 0 24 24"
+      width={size || width}
+      {...props}
+    >
+      <path d="M7 4h14l-1.5 9h-11L7 4zM5 2h2l1.5 9h12l2-12H6L5 2zm2 18a2 2 0 1 0 4 0 2 2 0 1 0-4 0zm10 0a2 2 0 1 0 4 0 2 2 0 1 0-4 0z" />
+    </svg>
+  );
+};
+
+export const FacebookIcon: React.FC<IconSvgProps> = ({
+  size = 24,
+  width,
+  height,
+  ...props
+}) => {
+  return (
+    <svg
+      height={size || height}
+      viewBox="0 0 24 24"
+      width={size || width}
+      {...props}
+    >
+      <path
+        d="M22.675 0h-21.35C.597 0 0 .597 0 1.326v21.348C0 23.403.597 24 1.326 24h11.495v-9.294H9.689v-3.622h3.132V8.408c0-3.1 1.893-4.787 4.658-4.787 1.325 0 2.463.099 2.794.143v3.24l-1.918.001c-1.505 0-1.797.717-1.797 1.767v2.315h3.59l-.467 3.622h-3.123V24h6.117C23.403 24 24 23.403 24 22.674V1.326C24 .597 23.403 0 22.675 0z"
+        fill="currentColor"
+      />
+    </svg>
+  );
+};
+
+export const MinusIcon: React.FC<IconSvgProps> = ({
+  size = 24,
+  width,
+  height,
+  ...props
+}) => {
+  return (
+    <svg
+      fill="currentColor"
+      height={size || height}
+      viewBox="0 0 24 24"
+      width={size || width}
+      {...props}
+    >
+      <path
+        d="M5 12h14"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="2"
+      />
+    </svg>
+  );
+};

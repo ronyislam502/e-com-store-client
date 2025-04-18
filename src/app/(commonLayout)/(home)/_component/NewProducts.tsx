@@ -12,7 +12,6 @@ const NewProducts = () => {
   return (
     <div className="mx-10">
       <h2 className="text-center text-2xl font-bold my-6">new products</h2>
-      {isLoadingProducts && <NewProductsSkeleton />}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-10">
         {products?.data
           ?.slice(0, 4)

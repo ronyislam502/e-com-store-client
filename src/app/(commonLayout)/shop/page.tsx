@@ -8,6 +8,7 @@ import { Pagination } from "@heroui/pagination";
 import ProductCard from "@/src/components/ui/ProductCard";
 import ShopSkeleton from "@/src/components/skeleton/ShopSkeleton";
 import { Select, SelectItem } from "@heroui/select";
+import { Spinner } from "@heroui/spinner";
 
 const Shop = () => {
   const [category, setCategory] = useState("");
@@ -56,6 +57,7 @@ const Shop = () => {
               <ProductCard key={product._id} product={product} />
             ))}
           </div>
+
           <div className="flex flex-wrap gap-4 items-center mt-10">
             <Pagination
               isCompact

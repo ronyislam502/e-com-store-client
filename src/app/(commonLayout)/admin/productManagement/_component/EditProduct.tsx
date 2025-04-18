@@ -132,7 +132,7 @@ const EditProduct = ({ product }: TProps) => {
                   price: product?.price,
                   brand: product?.brand,
                   quantity: product?.quantity,
-                  category: product?.category,
+                  category: product?.category?._id,
                 }}
                 resolver={zodResolver(updateProductValidationSchema)}
                 onSubmit={onSubmit}

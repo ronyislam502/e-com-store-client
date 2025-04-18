@@ -24,9 +24,12 @@ const Purchase = () => {
         <TableHeader>
           <TableColumn>Date</TableColumn>
           <TableColumn>Indx</TableColumn>
-          <TableColumn>Status</TableColumn>
+          <TableColumn>Order No</TableColumn>
+          <TableColumn>Arrive</TableColumn>
           <TableColumn>Payment</TableColumn>
           <TableColumn>TotalPrice</TableColumn>
+          <TableColumn>Tax</TableColumn>
+          <TableColumn>TotalPay</TableColumn>
           <TableColumn>Action</TableColumn>
         </TableHeader>
         <TableBody>
@@ -34,9 +37,12 @@ const Purchase = () => {
             <TableRow key={order._id}>
               <TableCell>{formatDate(order.createdAt)}</TableCell>
               <TableCell>{indx + 1}</TableCell>
+              <TableCell>{order?.transactionId}</TableCell>
               <TableCell>{order?.status}</TableCell>
               <TableCell>{order?.paymentStatus}</TableCell>
               <TableCell>$ {order?.totalPrice}</TableCell>
+              <TableCell>${order?.tax}</TableCell>
+              <TableCell>$ {order?.grandAmount}</TableCell>
               <TableCell>Details</TableCell>
             </TableRow>
           ))}
