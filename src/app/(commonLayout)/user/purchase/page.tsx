@@ -12,6 +12,8 @@ import {
   TableHeader,
   TableRow,
 } from "@heroui/table";
+import AddReview from "../_component/AddReview";
+import { TOrder } from "@/src/types/order";
 
 const Purchase = () => {
   const loggedUser = useAppSelector((state) => state?.auth?.user) as TUser;
@@ -19,7 +21,11 @@ const Purchase = () => {
 
   return (
     <div>
-      <h2>Puschase</h2>
+      <h2>Purchase</h2>
+      <div className="text-end mx-10 mb-4">
+        {" "}
+        <AddReview />
+      </div>
       <Table fullWidth aria-label="Product Table">
         <TableHeader>
           <TableColumn>Date</TableColumn>
@@ -30,10 +36,9 @@ const Purchase = () => {
           <TableColumn>TotalPrice</TableColumn>
           <TableColumn>Tax</TableColumn>
           <TableColumn>TotalPay</TableColumn>
-          <TableColumn>Action</TableColumn>
         </TableHeader>
         <TableBody>
-          {orders?.data?.map((order: any, indx: any) => (
+          {orders?.data?.map((order: TOrder, indx: number) => (
             <TableRow key={order._id}>
               <TableCell>{formatDate(order.createdAt)}</TableCell>
               <TableCell>{indx + 1}</TableCell>
@@ -43,7 +48,6 @@ const Purchase = () => {
               <TableCell>$ {order?.totalPrice}</TableCell>
               <TableCell>${order?.tax}</TableCell>
               <TableCell>$ {order?.grandAmount}</TableCell>
-              <TableCell>Details</TableCell>
             </TableRow>
           ))}
         </TableBody>

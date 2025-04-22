@@ -20,7 +20,6 @@ import AddProduct from "./_component/AddProduct";
 import EditProduct from "./_component/EditProduct";
 import DeleteProduct from "./_component/DeleteProduct";
 import { Avatar } from "@heroui/avatar";
-import Details from "./[id]/page";
 import Link from "next/link";
 
 export const columns = [
