@@ -33,7 +33,7 @@ const CartDetails = ({ product }: TProps) => {
           {product?.name}
         </h3>
         <p className="text-lg font-bold text-yellow-600">
-          ${product?.price * product?.quantity}
+          ${(product?.price * product?.quantity).toFixed(2)}
         </p>
       </div>
       <div className="flex items-center space-x-2">
@@ -41,7 +41,7 @@ const CartDetails = ({ product }: TProps) => {
           color="danger"
           disabled={product.quantity <= 1}
           size="sm"
-          onPress={() => handleQuantity("decrement", product._id)}
+          onPress={() => handleQuantity("decrement", product?._id)}
         >
           <MinusIcon />
         </Button>
@@ -49,7 +49,7 @@ const CartDetails = ({ product }: TProps) => {
         <Button
           color="primary"
           size="sm"
-          onPress={() => handleQuantity("increment", product._id)}
+          onPress={() => handleQuantity("increment", product?._id)}
         >
           <PlusIcon />
         </Button>
@@ -57,7 +57,7 @@ const CartDetails = ({ product }: TProps) => {
       <Button
         color="danger"
         size="sm"
-        onPress={() => handleRemove(product._id)}
+        onPress={() => handleRemove(product?._id)}
       >
         <TrashIcon />
       </Button>
