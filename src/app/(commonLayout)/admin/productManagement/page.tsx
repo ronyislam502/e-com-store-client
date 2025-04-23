@@ -37,7 +37,7 @@ const ProductManagement = () => {
   const [search, setSearch] = useState("");
   const [page, setPage] = useState(1);
   const [isStock, setIsStock] = useState("");
-  const [limit] = useState(8);
+  const [limit] = useState(3);
   const debouncedSearch = useDebounce(search, 500);
 
   const { data: categories, isLoading: isLoadingCategories } =
@@ -53,6 +53,7 @@ const ProductManagement = () => {
 
   return (
     <div className="p-4 max-w-6xl mx-auto">
+      <h2 className="text-xl font-bold text-center mb-2">Product Management</h2>
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 mb-4">
         <Input
           className="max-w-xs"

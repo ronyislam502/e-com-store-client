@@ -1,4 +1,5 @@
 import { FacebookIcon, TwitterIcon } from "@/src/components/icons";
+import SectionTitle from "@/src/components/ui/SectionTitle";
 import { Card, CardBody, CardFooter } from "@heroui/card";
 import Image from "next/image";
 import React from "react";
@@ -6,7 +7,7 @@ import React from "react";
 const OurTeam = () => {
   return (
     <div className="my-10">
-      <h3 className="text-2xl text-center">Our Team</h3>
+      <SectionTitle heading="Our Team" />
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
         <Card className="shadow-2xl">
           <CardBody className="overflow-visible bg-white">

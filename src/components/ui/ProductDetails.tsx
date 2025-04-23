@@ -27,32 +27,32 @@ const ProductDetails = ({ product }: TProps) => {
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-10 grid grid-cols-1 lg:grid-cols-2 gap-10">
-      <div>
+    <div className="max-w-7xl mx-auto px-4 py-10 grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div className="flex gap-4">
+        <div className="px-6">
+          {product?.images?.map((img, i) => (
+            <Image
+              key={i}
+              alt={`Thumbnail ${i + 1}`}
+              className={`w-20 mt-2 h-20 object-cover rounded-md border-2 cursor-pointer transition ${
+                selectedImage === img ? "border-blue-500" : "border-gray-300"
+              }`}
+              height={80}
+              src={img}
+              width={80}
+              onClick={() => setSelectedImage(img)}
+            />
+          ))}
+        </div>
         <div>
           <Image
             alt="Product Image"
-            className="w-full rounded-lg shadow-md"
+            className=" rounded-lg shadow-md"
             height={200}
             src={selectedImage}
-            width={500}
+            width={400}
           />
           {/* Thumbnail Images */}
-          <div className="flex gap-4 mt-4">
-            {product?.images?.map((img, i) => (
-              <Image
-                key={i}
-                alt={`Thumbnail ${i + 1}`}
-                className={`w-20 h-20 object-cover rounded-md border-2 cursor-pointer transition ${
-                  selectedImage === img ? "border-blue-500" : "border-gray-300"
-                }`}
-                height={80}
-                src={img}
-                width={80}
-                onClick={() => setSelectedImage(img)}
-              />
-            ))}
-          </div>
         </div>
       </div>
       {/* Details Section */}

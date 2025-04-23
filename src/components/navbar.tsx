@@ -14,6 +14,7 @@ import { ThemeSwitch } from "@/src/components/theme-switch";
 import { ShoppingCartIcon } from "@/src/components/icons";
 import NavCondition from "./navbar/NavCondition";
 import Link from "next/link";
+import CartCondition from "./navbar/CartCondition";
 
 export const Navbar = () => {
   return (
@@ -48,7 +49,7 @@ export const Navbar = () => {
       >
         <NavbarItem className="hidden sm:flex gap-2">
           <Link href="/cart">
-            <ShoppingCartIcon />
+            <CartCondition />
           </Link>
         </NavbarItem>
         <NavbarItem className="hidden sm:flex gap-2">

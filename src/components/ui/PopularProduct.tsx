@@ -1,5 +1,4 @@
 import { TPopularProduct } from "@/src/types/product";
-import { Button } from "@heroui/button";
 import { Card, CardBody, CardFooter } from "@heroui/card";
 import Image from "next/image";
 
@@ -19,10 +18,14 @@ const PopularProduct = ({ product }: TProps) => {
           width={350}
         />
       </CardBody>
-      <CardFooter className="flex-col items-center bg-white ">
-        <h1 className="text-sm font-bold text-black">{product?.name}</h1>
-        <p className="p-2 text-black">Price: ${product?.price}</p>
-        <Button color="primary">add To cart</Button>
+      <CardFooter className="flex-col items-center bg-white p-2">
+        <h3 className="text-md font-bold text-black">
+          {product?.name?.slice(0, 30)}
+        </h3>
+        <div className="flex gap-6">
+          <p className="p-2 text-black">Price: ${product?.price}</p>
+          <p className="p-2 text-black">TotalSold: {product?.totalSold}</p>
+        </div>
       </CardFooter>
     </Card>
   );

@@ -14,6 +14,7 @@ import { FieldValues } from "react-hook-form";
 import { toast } from "sonner";
 import { verifyToken } from "@/src/utils/verifyToken";
 import { loginValidationSchema } from "@/src/schemas/loginValidationSchema";
+import Cookies from "js-cookie";
 
 const Login = () => {
   const [signin] = useSigninMutation();
@@ -33,6 +34,9 @@ const Login = () => {
       const user = verifyToken(res?.data?.accessToken) as TUser;
 
       dispatch(setUser({ user: user, token: res?.data?.accessToken }));
+      // localStorage?.setItem("accessToken", res?.data?.accessToken);
+      Cookies.set("accessToken", res?.data?.accessToken);
+
       if (res?.success) {
         toast.success(res?.message, { id: toastId, duration: 2000 });
         router.push("/");

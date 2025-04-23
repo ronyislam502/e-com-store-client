@@ -16,16 +16,25 @@ import { useState } from "react";
 import { Input } from "@heroui/input";
 import { Select, SelectItem } from "@heroui/select";
 import { useDebounce } from "@/src/utils/DebaounceHook";
+import { Pagination } from "@heroui/pagination";
 
 const UserManagement = () => {
   const [search, setSearch] = useState("");
+  const [page, setPage] = useState(1);
+  const [limit] = useState(4);
   const [role, setRole] = useState("");
   const debouncedSearch = useDebounce(search, 400);
 
-  const { data: users } = useAllUsersQuery({ search: debouncedSearch, role });
+  const { data: users } = useAllUsersQuery({
+    search: debouncedSearch,
+    role,
+    page,
+    limit,
+  });
 
   return (
     <div>
+      <h2 className="text-xl font-bold text-center mb-2">User Management</h2>
       <div className="flex gap-4 mb-2">
         <Input
           className="max-w-xs"
@@ -78,6 +87,17 @@ const UserManagement = () => {
             ))}
           </TableBody>
         </Table>
+      </div>
+      <div className="flex justify-center mt-6 text-center">
+        <Pagination
+          isCompact
+          showControls
+          showShadow
+          color="secondary"
+          page={page}
+          total={users?.meta?.totalPage}
+          onChange={(page) => setPage(page)}
+        />
       </div>
     </div>
   );

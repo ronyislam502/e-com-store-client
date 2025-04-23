@@ -11,6 +11,7 @@ import {
   DropdownMenu,
   DropdownItem,
 } from "@heroui/dropdown";
+import Cookies from "js-cookie";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
@@ -24,6 +25,7 @@ const NavDropdown = () => {
 
   const handleLogOut = () => {
     dispatch(logOut());
+    Cookies.remove("accessToken");
     router.push("/");
   };
 

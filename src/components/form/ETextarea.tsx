@@ -19,8 +19,9 @@ const ETextarea = ({ name, label, variant = "bordered" }: IProps) => {
   return (
     <Textarea
       {...register(name)}
+      color="success"
       label={label}
-      minRows={6}
+      minRows={4}
       value={currentValue || ""}
       variant={variant}
     />

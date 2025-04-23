@@ -8,12 +8,12 @@ import CountUp from "react-countup";
 
 const Reviews = () => {
   const [page, setPage] = useState(1);
-  const [limit] = useState(8);
+  const [limit] = useState(2);
   const { data: reviews } = useGetAllReviewsQuery({ page, limit });
 
   return (
     <div className="my-10">
-      <div className="flex lg:flex-row flex-col justify-between gap-y-5 gap-x-[70px]">
+      <div className="flex lg:flex-row flex-col justify-between gap-y-5 gap-x-[70px] px-16">
         <div className="lg:w-[50%] bg-green-500 p-5 rounded-md text-white">
           <h3 className="text-2xl font-semibold mb-4 text-center">
             Our Customers Love Us
@@ -46,7 +46,7 @@ const Reviews = () => {
               return (
                 <div
                   key={review?._id}
-                  className="mt-4 bg-blue-100 p-5 rounded-md"
+                  className="mt-4 bg-success-100 p-5 rounded-md"
                 >
                   <p className="font-medium text-lg">{review?.user?.name}</p>
                   <p>{review?.feedback}</p>

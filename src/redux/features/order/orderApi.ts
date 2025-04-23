@@ -3,10 +3,22 @@ import { baseApi } from "../../api/baseApi";
 const orderApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     allOrders: builder.query({
-      query: () => ({
-        url: "/orders",
-        method: "GET",
-      }),
+      query: ({ page, limit }) => {
+        const params = new URLSearchParams();
+
+        if (page) {
+          params.append("page", page);
+        }
+        if (limit) {
+          params.append("limit", limit);
+        }
+
+        return {
+          url: "/orders",
+          method: "GET",
+          params: params,
+        };
+      },
       providesTags: ["order"],
     }),
     singleOrder: builder.query({
@@ -31,10 +43,22 @@ const orderApi = baseApi.injectEndpoints({
       providesTags: ["order"],
     }),
     userOrders: builder.query({
-      query: (email) => ({
-        url: `/orders/${email}`,
-        method: "GET",
-      }),
+      query: ({ loggedUser, page, limit }) => {
+        const params = new URLSearchParams();
+
+        if (page) {
+          params.append("page", page);
+        }
+        if (limit) {
+          params.append("limit", limit);
+        }
+
+        return {
+          url: `/orders/${loggedUser?.email}`,
+          method: "GET",
+          params: params,
+        };
+      },
       providesTags: ["order"],
     }),
   }),

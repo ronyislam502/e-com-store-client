@@ -33,14 +33,14 @@ const Contact = () => {
 
   return (
     <div className="px-4 py-10">
-      <div className="flex h-[calc(100vh-200px)] w-full flex-col items-center justify-center">
+      <div className="flex  w-full flex-col items-center justify-center">
         <h3 className="my-2 text-2xl font-bold">Contact Us</h3>
-        <p className="mb-4">
+        <p className="px-6 text-center">
           We&apos;d love to hear from you! Please reach out with any questions
           or feedback.
         </p>
         <FormProvider {...methods}>
-          <div className="w-[35%]">
+          <div className="lg:w-[35%]">
             <EForm
               resolver={zodResolver(contactValidationSchema)}
               onSubmit={onSubmit}
@@ -48,7 +48,6 @@ const Contact = () => {
               <div className="py-3">
                 <EInput label="Name" name="name" type="text" />
               </div>
-
               <div className="py-3">
                 <EInput label="Email" name="email" type="email" />
               </div>
@@ -81,7 +80,7 @@ const Contact = () => {
             customers. Our dedicated team is always ready to assist you with any
             inquiries, ensuring your experience is seamless and satisfying.
           </p>
-          <div className="flex justify-center gap-10">
+          <div className="grid grid-cols-1 lg:grid-cols-3 justify-center gap-10 px-4">
             <div className="bg-white p-6 rounded-lg shadow-md">
               <h3 className="text-2xl font-semibold text-primary">
                 24/7 Availability

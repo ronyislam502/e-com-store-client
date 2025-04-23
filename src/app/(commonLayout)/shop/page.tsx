@@ -16,13 +16,12 @@ const Shop = () => {
   const [category, setCategory] = useState("");
   const [search, setSearch] = useState("");
   const [page, setPage] = useState(1);
-  const [limit] = useState(8);
+  const [limit] = useState(4);
   const [sort, setSort] = useState("");
 
   const debouncedSearch = useDebounce(search, 500);
 
-  const { data: categories, isLoading: isLoadingCategories } =
-    useAllCategoriesQuery({});
+  const { data: categories, isLoading } = useAllCategoriesQuery({});
 
   const { data: products, isLoading: isLoadingProducts } = useAllProductsQuery({
     page,
@@ -34,6 +33,7 @@ const Shop = () => {
 
   return (
     <div className="items-center mb-10">
+      <h2 className="text-center text-xl font-bold">Our Products</h2>
       <div className="grid grid-cols-1 lg:grid-cols-6 gap-6">
         <div className="col-span-1">
           {" "}
@@ -53,13 +53,13 @@ const Shop = () => {
               onChange={(e) => setCategory(e.target.value)}
             >
               <SelectItem key="">All</SelectItem>
-              {isLoadingCategories ? (
+              {isLoading ? (
                 <SelectItem>
                   <Spinner />
                 </SelectItem>
               ) : (
                 categories?.data?.map((category: TCategory) => (
-                  <SelectItem key={category?._id}>{category.name}</SelectItem>
+                  <SelectItem key={category?._id}>{category?.name}</SelectItem>
                 ))
               )}
             </Select>

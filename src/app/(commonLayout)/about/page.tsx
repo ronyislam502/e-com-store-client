@@ -1,11 +1,12 @@
 import React from "react";
 import Welcome from "./_component/Welcome";
 import OurTeam from "./_component/OurTeam";
+import SectionTitle from "@/src/components/ui/SectionTitle";
 
 const About = () => {
   return (
     <div>
-      <h3 className="text-center text-2xl font-bold">About Us</h3>
+      <SectionTitle heading="About Us" />
       <Welcome />
       <OurTeam />
     </div>
