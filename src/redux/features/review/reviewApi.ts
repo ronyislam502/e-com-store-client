@@ -2,18 +2,23 @@ import { baseApi } from "../../api/baseApi";
 
 const reviewApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
-    getLatestTwoReviews: builder.query({
-      query: () => ({
-        url: `/reviews?number=2`,
-        method: "GET",
-      }),
-      providesTags: ["review"],
-    }),
     getAllReviews: builder.query({
-      query: () => ({
-        url: "/reviews",
-        method: "GET",
-      }),
+      query: ({ page, limit }) => {
+        const params = new URLSearchParams();
+
+        if (page) {
+          params.append("page", page);
+        }
+        if (limit) {
+          params.append("limit", limit);
+        }
+
+        return {
+          url: "/reviews",
+          method: "GET",
+          params: params,
+        };
+      },
       providesTags: ["review"],
     }),
     createReview: builder.mutation({
@@ -24,19 +29,7 @@ const reviewApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["review"],
     }),
-    getSingleProductReview: builder.query({
-      query: (id) => ({
-        url: `/reviews/${id}`,
-        method: "GET",
-      }),
-      providesTags: ["review"],
-    }),
   }),
 });
 
-export const {
-  useGetLatestTwoReviewsQuery,
-  useGetSingleProductReviewQuery,
-  useCreateReviewMutation,
-  useGetAllReviewsQuery,
-} = reviewApi;
+export const { useCreateReviewMutation, useGetAllReviewsQuery } = reviewApi;

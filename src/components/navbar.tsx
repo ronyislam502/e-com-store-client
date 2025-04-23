@@ -11,7 +11,7 @@ import NextLink from "next/link";
 import clsx from "clsx";
 import { siteConfig } from "@/src/config/site";
 import { ThemeSwitch } from "@/src/components/theme-switch";
-import { Logo, ShoppingCartIcon } from "@/src/components/icons";
+import { ShoppingCartIcon } from "@/src/components/icons";
 import NavCondition from "./navbar/NavCondition";
 import Link from "next/link";
 
@@ -20,8 +20,7 @@ export const Navbar = () => {
     <HeroUINavbar maxWidth="xl" position="sticky">
       <NavbarBrand as="li" className="gap-3 max-w-fit">
         <NextLink className="flex justify-start items-center gap-1" href="/">
-          <Logo />
-          <p className="font-bold text-inherit">FoundX</p>
+          <p className="font-bold text-inherit">E-com</p>
         </NextLink>
       </NavbarBrand>
       <NavbarContent className="basis-1/5 sm:basis-full" justify="center">

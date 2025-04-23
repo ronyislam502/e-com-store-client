@@ -25,6 +25,7 @@ const EInput = ({
   return (
     <Input
       {...register(name)}
+      color="success"
       defaultValue={value}
       errorMessage={errors[name] ? (errors[name].message as string) : ""}
       isInvalid={!!errors[name]}

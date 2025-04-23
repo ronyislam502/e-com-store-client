@@ -1,16 +1,17 @@
-import { TQueryParam } from "@/src/types";
 import { baseApi } from "../../api/baseApi";
 
 const productApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     allProducts: builder.query({
-      query: ({ category, page, isStock, limit, sort }) => {
+      query: ({ category, page, isStock, limit, sort, search }) => {
         const params = new URLSearchParams();
 
+        if (search) {
+          params.append("searchTerm", search);
+        }
         if (category) {
           params.append("category", category);
         }
-
         if (sort) {
           params.append("sort", sort);
         }
@@ -62,22 +63,12 @@ const productApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["product"],
     }),
-    getAllProducts: builder.query({
-      query: (args) => {
-        const params = new URLSearchParams();
-
-        if (args) {
-          args.forEach((product: TQueryParam) => {
-            params.append(product.name, product?.value as string);
-          });
-        }
-
-        return {
-          url: "/products",
-          method: "GET",
-          params: params,
-        };
-      },
+    newProduct: builder.query({
+      query: () => ({
+        url: "/products",
+        method: "GET",
+      }),
+      providesTags: ["product"],
     }),
   }),
 });
@@ -88,5 +79,5 @@ export const {
   useAddProductMutation,
   useUpdateProductMutation,
   useDeleteProductMutation,
-  useGetAllProductsQuery,
+  useNewProductQuery,
 } = productApi;

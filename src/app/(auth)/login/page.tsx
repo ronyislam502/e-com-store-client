@@ -13,7 +13,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { FieldValues } from "react-hook-form";
 import { toast } from "sonner";
 import { verifyToken } from "@/src/utils/verifyToken";
-import loginValidationSchema from "@/src/schemas/loginValidationSchema";
+import { loginValidationSchema } from "@/src/schemas/loginValidationSchema";
 
 const Login = () => {
   const [signin] = useSigninMutation();
@@ -49,7 +49,7 @@ const Login = () => {
 
   return (
     <div className="flex h-[calc(100vh-200px)] w-full flex-col items-center justify-center">
-      <h3 className="my-2 text-2xl font-bold">Login with FoundX</h3>
+      <h3 className="my-2 text-2xl font-bold">Login with E-com</h3>
       <p className="mb-4">Welcome Back! Let&lsquo;s Get Started</p>
       <div className="w-[35%]">
         <EForm

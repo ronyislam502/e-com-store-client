@@ -33,7 +33,7 @@ const ESelect = ({
       variant={variant}
     >
       {options.map((option) => (
-        <SelectItem key={option.key}>{option.label}</SelectItem>
+        <SelectItem key={option?.key}>{option?.label}</SelectItem>
       ))}
     </Select>
   );

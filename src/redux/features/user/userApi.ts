@@ -1,16 +1,16 @@
-import { TQueryParam } from "@/src/types";
 import { baseApi } from "../../api/baseApi";
 
 const userApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     allUsers: builder.query({
-      query: (args) => {
+      query: ({ search, role }) => {
         const params = new URLSearchParams();
 
-        if (args) {
-          args.forEach((user: TQueryParam) => {
-            params.append(user.name, user?.value as string);
-          });
+        if (search) {
+          params.append("searchTerm", search);
+        }
+        if (role) {
+          params.append("role", role);
         }
 
         return {
@@ -19,6 +19,7 @@ const userApi = baseApi.injectEndpoints({
           params: params,
         };
       },
+      providesTags: ["user"],
     }),
     singleUser: builder.query({
       query: (email) => ({
@@ -31,7 +32,7 @@ const userApi = baseApi.injectEndpoints({
       query: (args) => ({
         url: `/users/update/${args?.id}`,
         method: "PATCH",
-        body: args.data,
+        body: args?.data,
       }),
       invalidatesTags: ["user"],
     }),

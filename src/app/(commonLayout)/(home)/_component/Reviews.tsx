@@ -2,14 +2,17 @@
 
 import { useGetAllReviewsQuery } from "@/src/redux/features/review/reviewApi";
 import { formatDate } from "@/src/utils/Date";
-import Link from "next/link";
+import { Pagination } from "@heroui/pagination";
+import { useState } from "react";
 import CountUp from "react-countup";
 
 const Reviews = () => {
-  const { data: reviews } = useGetAllReviewsQuery("");
+  const [page, setPage] = useState(1);
+  const [limit] = useState(8);
+  const { data: reviews } = useGetAllReviewsQuery({ page, limit });
 
   return (
-    <div className="mt-10">
+    <div className="my-10">
       <div className="flex lg:flex-row flex-col justify-between gap-y-5 gap-x-[70px]">
         <div className="lg:w-[50%] bg-green-500 p-5 rounded-md text-white">
           <h3 className="text-2xl font-semibold mb-4 text-center">
@@ -32,20 +35,14 @@ const Reviews = () => {
               className="text-5xl font-bold "
               delay={1}
               duration={5}
-              end={reviews?.data?.reviews.length}
+              end={reviews?.data?.data?.length}
               start={0}
             />
-            <Link
-              className="text-xl font-semibold bg-primary text-white py-2 px-6 rounded-md mt-5"
-              href={"/reviews"}
-            >
-              See All Reviews
-            </Link>
           </div>
         </div>
         <div className="lg:w-[50%] mt-4">
           <div className="">
-            {reviews?.data?.reviews?.slice(0, 2).map((review: any) => {
+            {reviews?.data?.data?.slice(0, 2).map((review: any) => {
               return (
                 <div
                   key={review?._id}
@@ -64,6 +61,17 @@ const Reviews = () => {
                 </div>
               );
             })}
+          </div>
+          <div className="flex justify-center mt-6 text-center">
+            <Pagination
+              isCompact
+              showControls
+              showShadow
+              color="secondary"
+              page={page}
+              total={reviews?.meta?.totalPage}
+              onChange={(page) => setPage(page)}
+            />
           </div>
         </div>
       </div>

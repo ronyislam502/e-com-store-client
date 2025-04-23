@@ -21,6 +21,7 @@ import EditProduct from "./_component/EditProduct";
 import DeleteProduct from "./_component/DeleteProduct";
 import { Avatar } from "@heroui/avatar";
 import Link from "next/link";
+import { useDebounce } from "@/src/utils/DebaounceHook";
 
 export const columns = [
   { name: "Avatar", uid: "avatar" },
@@ -33,55 +34,50 @@ export const columns = [
 
 const ProductManagement = () => {
   const [category, setCategory] = useState("");
-  const [searchTerm, setSearchTerm] = useState("");
+  const [search, setSearch] = useState("");
   const [page, setPage] = useState(1);
   const [isStock, setIsStock] = useState("");
   const [limit] = useState(8);
+  const debouncedSearch = useDebounce(search, 500);
 
   const { data: categories, isLoading: isLoadingCategories } =
     useAllCategoriesQuery({});
 
   const { data: products, isLoading: isLoadingProducts } = useAllProductsQuery({
-    category,
     page,
     isStock,
     limit,
+    category,
+    search: debouncedSearch,
   });
-
-  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchTerm(e.target.value);
-    setPage(1);
-  };
 
   return (
     <div className="p-4 max-w-6xl mx-auto">
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 mb-4">
         <Input
-          className="w-full p-2 border rounded"
-          placeholder="Search products..."
+          className="max-w-xs"
+          label="Search"
+          size="md"
           type="text"
-          value={searchTerm}
-          onChange={handleSearch}
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
         />
-
-        <div>
-          <Select
-            label="Category"
-            value={category}
-            onChange={(e) => setCategory(e.target.value)}
-          >
-            <SelectItem key="">All</SelectItem>
-            {isLoadingCategories ? (
-              <SelectItem>
-                <Spinner />
-              </SelectItem>
-            ) : (
-              categories?.data?.map((category: TCategory) => (
-                <SelectItem key={category?._id}>{category.name}</SelectItem>
-              ))
-            )}
-          </Select>
-        </div>
+        <Select
+          label="Category"
+          value={category}
+          onChange={(e) => setCategory(e.target.value)}
+        >
+          <SelectItem key="">All</SelectItem>
+          {isLoadingCategories ? (
+            <SelectItem>
+              <Spinner />
+            </SelectItem>
+          ) : (
+            categories?.data?.map((category: TCategory) => (
+              <SelectItem key={category?._id}>{category.name}</SelectItem>
+            ))
+          )}
+        </Select>
         <div>
           <Select
             label="Stock Status"

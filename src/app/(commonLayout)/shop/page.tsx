@@ -9,44 +9,70 @@ import ProductCard from "@/src/components/ui/ProductCard";
 import ShopSkeleton from "@/src/components/skeleton/ShopSkeleton";
 import { Select, SelectItem } from "@heroui/select";
 import { Spinner } from "@heroui/spinner";
+import { Input } from "@heroui/input";
+import { useDebounce } from "@/src/utils/DebaounceHook";
 
 const Shop = () => {
   const [category, setCategory] = useState("");
-  const [searchTerm, setSearchTerm] = useState("");
+  const [search, setSearch] = useState("");
+  const [page, setPage] = useState(1);
   const [limit] = useState(8);
   const [sort, setSort] = useState("");
-  const [page, setPage] = useState(1);
 
-  const { data: categories } = useAllCategoriesQuery("");
+  const debouncedSearch = useDebounce(search, 500);
+
+  const { data: categories, isLoading: isLoadingCategories } =
+    useAllCategoriesQuery({});
 
   const { data: products, isLoading: isLoadingProducts } = useAllProductsQuery({
-    category,
     page,
     limit,
+    category,
+    search: debouncedSearch,
     sort,
   });
 
-  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchTerm(e.target.value);
-    setPage(1);
-  };
-
   return (
-    <div className="items-center">
-      <h2 className="text-center">Shop</h2>
+    <div className="items-center mb-10">
       <div className="grid grid-cols-1 lg:grid-cols-6 gap-6">
         <div className="col-span-1">
           {" "}
           <div className="mt-10">
+            <Input
+              className="max-w-xs"
+              label="Search"
+              size="md"
+              type="text"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+            />
             <Select
+              className="mt-2"
               label="Category"
               value={category}
               onChange={(e) => setCategory(e.target.value)}
             >
               <SelectItem key="">All</SelectItem>
-              {categories?.data?.map((category: TCategory) => (
-                <SelectItem key={category?._id}>{category?.name}</SelectItem>
-              ))}
+              {isLoadingCategories ? (
+                <SelectItem>
+                  <Spinner />
+                </SelectItem>
+              ) : (
+                categories?.data?.map((category: TCategory) => (
+                  <SelectItem key={category?._id}>{category.name}</SelectItem>
+                ))
+              )}
+            </Select>
+            <Select
+              className="max-w-xs mt-2"
+              label="Sort By Price"
+              size="md"
+              value={sort}
+              onChange={(e) => setSort(e.target.value)}
+            >
+              <SelectItem key="">All</SelectItem>
+              <SelectItem key="price">Low to High</SelectItem>
+              <SelectItem key="-price">High to Low</SelectItem>
             </Select>
           </div>
         </div>
@@ -57,14 +83,15 @@ const Shop = () => {
               <ProductCard key={product._id} product={product} />
             ))}
           </div>
-
-          <div className="flex flex-wrap gap-4 items-center mt-10">
+          <div className="flex justify-center mt-6 text-center">
             <Pagination
               isCompact
               showControls
-              initialPage={page}
-              total={products?.meta?.totalPage ?? 8}
-              onChange={setPage}
+              showShadow
+              color="secondary"
+              page={page}
+              total={products?.meta?.totalPage}
+              onChange={(page) => setPage(page)}
             />
           </div>
         </div>

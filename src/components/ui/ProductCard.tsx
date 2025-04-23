@@ -3,6 +3,7 @@ import { TProduct } from "@/src/types/product";
 import { Button } from "@heroui/button";
 import { Card, CardBody, CardFooter } from "@heroui/card";
 import Image from "next/image";
+import Link from "next/link";
 import { useDispatch } from "react-redux";
 import { toast } from "sonner";
 
@@ -30,8 +31,11 @@ const ProductCard = ({ product }: TProps) => {
         />
       </CardBody>
       <CardFooter className="flex-col items-center bg-white ">
-        <h1 className="text-sm font-bold text-black">{product?.name}</h1>
-        <p className="p-2 text-black">Price: ${product?.price}</p>
+        <Link href={`/shop/${product?._id}`}>
+          <h3 className="text-sm font-bold text-black">{product?.name}</h3>
+          <p className="text-sm">{product?.description.slice(0, 49)}..</p>
+          <p className="p-2 text-black">Price: ${product?.price}</p>
+        </Link>
         <Button color="primary" onPress={() => handleAddToCart(product)}>
           add To cart
         </Button>

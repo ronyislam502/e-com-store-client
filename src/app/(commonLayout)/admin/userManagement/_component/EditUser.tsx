@@ -3,11 +3,9 @@
 import EForm from "@/src/components/form/EForm";
 import ESelect from "@/src/components/form/ESelect";
 import { EditIcon } from "@/src/components/icons";
-import {
-  useSingleUserQuery,
-  useUpdateUserMutation,
-} from "@/src/redux/features/user/userApi";
-import { updateUserRole } from "@/src/schemas/UserValidationSchema";
+import { useUpdateUserMutation } from "@/src/redux/features/user/userApi";
+import { updateUserValidationSchema } from "@/src/schemas/UserValidationSchema";
+
 import { TError } from "@/src/types";
 import { TUser } from "@/src/types/user";
 import { Avatar } from "@heroui/avatar";
@@ -21,7 +19,6 @@ import {
   useDisclosure,
 } from "@heroui/modal";
 import { zodResolver } from "@hookform/resolvers/zod";
-import React, { useEffect } from "react";
 import { FieldValues, FormProvider, useForm } from "react-hook-form";
 import { toast } from "sonner";
 
@@ -37,40 +34,29 @@ const userRoleOption = [
 const EditUser = ({ user }: TProps) => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const methods = useForm();
-  const [updateUser, { isSuccess }] = useUpdateUserMutation();
-
-  useEffect(() => {
-    if (user) {
-      methods.reset({
-        role: user?.role,
-      });
-    }
-  }, [user, methods]);
+  const [updateUser] = useUpdateUserMutation();
 
   const onSubmit = async (data: FieldValues) => {
-    const toastId = toast.loading("update user role....");
+    const formData = new FormData();
 
     try {
-      const userRole = {
+      const userInfo = {
         role: data?.role,
       };
+      // console.log("user-data", userInfo);
 
-      console.log("userRole", userRole);
+      formData.append("data", JSON.stringify(userInfo));
 
-      const res = await updateUser({
+      await updateUser({
         id: user._id,
-        userRole,
-      });
+        data: formData,
+      }).unwrap();
 
-      console.log("res", res);
+      // console.log("view-res", res);
 
-      if (res?.data?.success) {
-        toast.success(res?.data?.message, { id: toastId, duration: 2000 });
-      }
+      toast.success("update user role", { duration: 2000 });
     } catch (error) {
       const err = error as TError;
-
-      console.log("err", err);
 
       toast.error(err?.data?.message, { duration: 2000 });
     }
@@ -92,7 +78,7 @@ const EditUser = ({ user }: TProps) => {
                 defaultValues={{
                   role: user?.role,
                 }}
-                resolver={zodResolver(updateUserRole)}
+                resolver={zodResolver(updateUserValidationSchema)}
                 onSubmit={onSubmit}
               >
                 <ModalBody>

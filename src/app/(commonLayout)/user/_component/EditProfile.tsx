@@ -46,8 +46,6 @@ const EditProfile = ({ user }: TProps) => {
   };
 
   const onSubmit = async (data: FieldValues) => {
-    const toastId = toast.loading("data process....");
-
     const formData = new FormData();
 
     try {
@@ -66,20 +64,18 @@ const EditProfile = ({ user }: TProps) => {
         formData.append("image", selectedImage);
       }
 
-      const res = await updateUser({
+      await updateUser({
         id: user._id,
         data: formData,
       }).unwrap();
 
       //   console.log("view-res", res);
 
-      if (res?.data?.success) {
-        toast.success(res?.data?.message, { id: toastId, duration: 2000 });
-      }
+      toast.success("User Info update", { duration: 2000 });
     } catch (error) {
       const err = error as TError;
 
-      toast.error(err?.data?.message, { id: toastId, duration: 2000 });
+      toast.error(err?.data?.message, { duration: 2000 });
     }
   };
 
