@@ -24,6 +24,7 @@ import { toast } from "sonner";
 
 type TProps = {
   user: TUser;
+  disabled: boolean;
 };
 
 const userRoleOption = [
@@ -31,7 +32,7 @@ const userRoleOption = [
   { key: "admin", label: "admin" },
 ];
 
-const EditUser = ({ user }: TProps) => {
+const EditUser = ({ user, disabled }: TProps) => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const methods = useForm();
   const [updateUser] = useUpdateUserMutation();
@@ -64,7 +65,13 @@ const EditUser = ({ user }: TProps) => {
 
   return (
     <div>
-      <Button color="warning" size="sm" onPress={onOpen}>
+      <Button
+        className={disabled ? "cursor-not-allowed opacity-50" : ""}
+        color="warning"
+        isDisabled={disabled}
+        size="sm"
+        onPress={onOpen}
+      >
         <EditIcon />
       </Button>
       <Modal isOpen={isOpen} placement="top-center" onOpenChange={onOpenChange}>

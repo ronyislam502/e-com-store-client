@@ -81,7 +81,7 @@ const UserManagement = () => {
                 <TableCell>{user?.phone}</TableCell>
                 <TableCell>{user?.role}</TableCell>
                 <TableCell className="flex gap-2">
-                  <EditUser user={user} />
+                  <EditUser disabled={user.role === "admin"} user={user} />
                 </TableCell>
               </TableRow>
             ))}
