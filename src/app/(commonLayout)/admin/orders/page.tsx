@@ -1,6 +1,5 @@
 "use client";
 
-import SectionTitle from "@/src/components/ui/SectionTitle";
 import { useAllOrdersQuery } from "@/src/redux/features/order/orderApi";
 import { TOrder } from "@/src/types/order";
 import { Pagination } from "@heroui/pagination";

@@ -23,15 +23,6 @@ import { Avatar } from "@heroui/avatar";
 import Link from "next/link";
 import { useDebounce } from "@/src/utils/DebaounceHook";
 
-export const columns = [
-  { name: "Avatar", uid: "avatar" },
-  { name: "NAME", uid: "name" },
-  { name: "Category", uid: "category" },
-  { name: "Price", uid: "price" },
-  { name: "Quantity", uid: "quantity" },
-  { name: "isStock", uid: "isStock" },
-];
-
 const ProductManagement = () => {
   const [category, setCategory] = useState("");
   const [search, setSearch] = useState("");
