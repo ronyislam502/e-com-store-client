@@ -1,3 +1,5 @@
+"use client";
+
 import { useFormContext, useWatch } from "react-hook-form";
 import { IInput } from "@/src/types";
 import { Select, SelectItem } from "@heroui/select";
@@ -27,6 +29,7 @@ const ESelect = ({
     <Select
       {...register(name)}
       className="min-w-full sm:min-w-[225px]"
+      errorMessage={errors[name] ? (errors[name].message as string) : ""}
       isDisabled={disabled}
       label={label}
       value={currentValue || ""}

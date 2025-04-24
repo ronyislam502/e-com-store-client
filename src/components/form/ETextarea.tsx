@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 
 import { useFormContext, useWatch } from "react-hook-form";
@@ -21,6 +20,7 @@ const ETextarea = ({ name, label, variant = "bordered" }: IProps) => {
     <Textarea
       {...register(name)}
       color="success"
+      errorMessage={errors[name] ? (errors[name].message as string) : ""}
       label={label}
       minRows={4}
       value={currentValue || ""}

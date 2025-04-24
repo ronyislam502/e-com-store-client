@@ -20,7 +20,6 @@ import AddProduct from "./_component/AddProduct";
 import EditProduct from "./_component/EditProduct";
 import DeleteProduct from "./_component/DeleteProduct";
 import { Avatar } from "@heroui/avatar";
-import Link from "next/link";
 import { useDebounce } from "@/src/utils/DebaounceHook";
 
 const ProductManagement = () => {
@@ -125,9 +124,6 @@ const ProductManagement = () => {
                     {product?.isStock ? "In Stock" : "Out of Stock"}
                   </TableCell>
                   <TableCell className="flex gap-2">
-                    <Link href={`/admin/productManagement/${product._id}`}>
-                      <h2>details</h2>
-                    </Link>
                     <EditProduct product={product} />
                     <DeleteProduct product={product} />
                   </TableCell>

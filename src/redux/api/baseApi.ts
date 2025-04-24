@@ -11,7 +11,7 @@ import { logOut, setUser } from "../features/auth/authSlice";
 import { toast } from "sonner";
 
 const baseQuery = fetchBaseQuery({
-  baseUrl: "https://e-com-server-chi.vercel.app/api/v1",
+  baseUrl: "https://e-com-store-server.vercel.app/api/v1",
   credentials: "include",
   prepareHeaders: (headers, { getState }) => {
     const token = (getState() as RootState).auth.token;
@@ -42,7 +42,7 @@ const baseQueryWithRefreshToken: BaseQueryFn<
   if (result?.error?.status === 401) {
     // console.log("sending refresh token");
     const res = await fetch(
-      "https://e-com-server-chi.vercel.app/api/v1/auth/refresh-token",
+      "https://e-com-store-server.vercel.app/api/v1/auth/refresh-token",
       {
         method: "POST",
         credentials: "include",
