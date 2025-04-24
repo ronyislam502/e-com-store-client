@@ -35,6 +35,7 @@ yarn-error.log*
 next-env.d.ts
 
 
+
 # git remote add origin https://github.com/ronyislam502/e-com-store-client.git
 # e-com-client
-.vercel
+
