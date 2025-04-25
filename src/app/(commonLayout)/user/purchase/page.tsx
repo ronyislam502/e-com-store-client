@@ -25,7 +25,7 @@ const Purchase = () => {
 
   return (
     <div>
-      <h2>Purchase</h2>
+      <h2 className="text-xl font-bold text-center mb-2">Purchase History</h2>
       <div className="text-end mx-10 mb-4">
         {" "}
         <AddReview />
@@ -34,7 +34,6 @@ const Purchase = () => {
         <Table fullWidth aria-label="Product Table">
           <TableHeader>
             <TableColumn>Date</TableColumn>
-            <TableColumn>Indx</TableColumn>
             <TableColumn>Order No</TableColumn>
             <TableColumn>Arrive</TableColumn>
             <TableColumn>Payment</TableColumn>
@@ -43,16 +42,15 @@ const Purchase = () => {
             <TableColumn>TotalPay</TableColumn>
           </TableHeader>
           <TableBody>
-            {orders?.data?.data?.map((order: TOrder, indx: number) => (
+            {orders?.data?.data?.map((order: TOrder) => (
               <TableRow key={order._id}>
                 <TableCell>{formatDate(order.createdAt)}</TableCell>
-                <TableCell>{indx + 1}</TableCell>
                 <TableCell>{order?.transactionId}</TableCell>
                 <TableCell>{order?.status}</TableCell>
                 <TableCell>{order?.paymentStatus}</TableCell>
-                <TableCell>$ {order?.totalPrice}</TableCell>
-                <TableCell>${order?.tax}</TableCell>
-                <TableCell>$ {order?.grandAmount}</TableCell>
+                <TableCell>${(order?.totalPrice).toFixed(2)}</TableCell>
+                <TableCell>${(order?.tax).toFixed(2)}</TableCell>
+                <TableCell>${(order?.grandAmount).toFixed(2)}</TableCell>
               </TableRow>
             ))}
           </TableBody>
