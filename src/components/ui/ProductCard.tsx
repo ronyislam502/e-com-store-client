@@ -19,6 +19,8 @@ const ProductCard = ({ product }: TProps) => {
     toast.success("Add to cart successfully");
   };
 
+  console.log("product", product?._id);
+
   return (
     <Card className="shadow-2xl pb-2">
       <CardBody className="overflow-visible bg-white">
