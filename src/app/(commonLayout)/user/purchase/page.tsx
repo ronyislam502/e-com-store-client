@@ -16,12 +16,17 @@ import AddReview from "../_component/AddReview";
 import { TOrder } from "@/src/types/order";
 import { Pagination } from "@heroui/pagination";
 import { useState } from "react";
+import TableSkeleton from "@/src/components/skeleton/TableSkeleton";
 
 const Purchase = () => {
   const [page, setPage] = useState(1);
   const [limit] = useState(8);
   const loggedUser = useAppSelector((state) => state?.auth?.user) as TUser;
-  const { data: orders } = useUserOrdersQuery({ loggedUser, page, limit });
+  const { data: orders, isLoading } = useUserOrdersQuery({
+    loggedUser,
+    page,
+    limit,
+  });
 
   return (
     <div>
@@ -31,30 +36,34 @@ const Purchase = () => {
         <AddReview />
       </div>
       <div>
-        <Table fullWidth aria-label="Product Table">
-          <TableHeader>
-            <TableColumn>Date</TableColumn>
-            <TableColumn>Order No</TableColumn>
-            <TableColumn>Arrive</TableColumn>
-            <TableColumn>Payment</TableColumn>
-            <TableColumn>TotalPrice</TableColumn>
-            <TableColumn>Tax</TableColumn>
-            <TableColumn>TotalPay</TableColumn>
-          </TableHeader>
-          <TableBody>
-            {orders?.data?.data?.map((order: TOrder) => (
-              <TableRow key={order._id}>
-                <TableCell>{formatDate(order.createdAt)}</TableCell>
-                <TableCell>{order?.transactionId}</TableCell>
-                <TableCell>{order?.status}</TableCell>
-                <TableCell>{order?.paymentStatus}</TableCell>
-                <TableCell>${(order?.totalPrice).toFixed(2)}</TableCell>
-                <TableCell>${(order?.tax).toFixed(2)}</TableCell>
-                <TableCell>${(order?.grandAmount).toFixed(2)}</TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
+        {isLoading ? (
+          <TableSkeleton columns={7} rowCount={limit} />
+        ) : (
+          <Table fullWidth aria-label="Product Table">
+            <TableHeader>
+              <TableColumn>Date</TableColumn>
+              <TableColumn>Order No</TableColumn>
+              <TableColumn>Arrive</TableColumn>
+              <TableColumn>Payment</TableColumn>
+              <TableColumn>TotalPrice</TableColumn>
+              <TableColumn>Tax</TableColumn>
+              <TableColumn>TotalPay</TableColumn>
+            </TableHeader>
+            <TableBody>
+              {orders?.data?.data?.map((order: TOrder) => (
+                <TableRow key={order._id}>
+                  <TableCell>{formatDate(order.createdAt)}</TableCell>
+                  <TableCell>{order?.transactionId}</TableCell>
+                  <TableCell>{order?.status}</TableCell>
+                  <TableCell>{order?.paymentStatus}</TableCell>
+                  <TableCell>${(order?.totalPrice).toFixed(2)}</TableCell>
+                  <TableCell>${(order?.tax).toFixed(2)}</TableCell>
+                  <TableCell>${(order?.grandAmount).toFixed(2)}</TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        )}
       </div>
       <div className="flex justify-center mt-6 text-center">
         <Pagination

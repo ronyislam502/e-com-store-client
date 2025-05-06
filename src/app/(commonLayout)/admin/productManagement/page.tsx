@@ -21,6 +21,7 @@ import EditProduct from "./_component/EditProduct";
 import DeleteProduct from "./_component/DeleteProduct";
 import { Avatar } from "@heroui/avatar";
 import { useDebounce } from "@/src/utils/DebaounceHook";
+import TableSkeleton from "@/src/components/skeleton/TableSkeleton";
 
 const ProductManagement = () => {
   const [category, setCategory] = useState("");
@@ -84,9 +85,7 @@ const ProductManagement = () => {
       </div>
       <div>
         {isLoadingProducts ? (
-          <div className="flex justify-center">
-            <Spinner />
-          </div>
+          <TableSkeleton columns={7} rowCount={limit} />
         ) : (
           <Table fullWidth aria-label="Product Table">
             <TableHeader>
