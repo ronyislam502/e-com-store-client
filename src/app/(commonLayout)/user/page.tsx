@@ -13,7 +13,7 @@ const User = () => {
 
   return (
     <div className="items-center text-center">
-      <h2 className="text-4xl font-bold text-black">User Info</h2>
+      <h2 className="text-4xl font-bold ">User Info</h2>
       <div className=" py-4">
         {" "}
         <EditProfile user={user} />

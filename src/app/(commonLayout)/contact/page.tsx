@@ -76,7 +76,7 @@ const Contact = () => {
           <h2 className="text-4xl font-bold text-emerald-400 mb-4">
             Why Our Support is the Best
           </h2>
-          <p className="text-lg text-orange-400 mb-8">
+          <p className="text-lg text-white mb-8">
             We pride ourselves on providing unparalleled support to our
             customers. Our dedicated team is always ready to assist you with any
             inquiries, ensuring your experience is seamless and satisfying.
