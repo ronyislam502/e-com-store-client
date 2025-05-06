@@ -59,7 +59,7 @@ const userLayout = ({ children }: { children: React.ReactNode }) => {
       <div className="col-span-1">
         <Sidebar />
       </div>
-      <div className="col-span-4">{children}</div>
+      <div className="col-span-4 h-[67vh]">{children}</div>
     </div>
   );
 };
