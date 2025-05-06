@@ -1,4 +1,19 @@
-live url : https://e-com-store-client.vercel.app/
+live url : https://e-com-store-client.vercel.app
+
+server_live: https://e-com-store-server.vercel.app
+
+server_code: https://github.com/ronyislam502/e-com-store-server
+
+
+credentials:
+
+admin: admin@gmail.com
+
+password:123456
+
+user: rafsan@gmail.com
+
+password:123456
 
 # Next.js & HeroUI Template
 
