@@ -1,4 +1,4 @@
-live url : https://e-com-store-client.vercel.app
+live url : https://e-com-store-clinet.vercel.app/
 
 server_live: https://e-com-store-server.vercel.app
 
